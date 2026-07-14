@@ -7,6 +7,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Jalankan route ini sekali di browser untuk membuat superadmin di server yang sudah diupload
+Route::get('/run-seeder-superadmin', function () {
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'PermissionSeeder']);
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'RoleSeeder']);
+    return 'Seeder berhasil dijalankan. Superadmin berhasil dibuat!';
+});
+
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

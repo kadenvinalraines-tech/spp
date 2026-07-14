@@ -132,6 +132,11 @@ class UserController extends Controller
             return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
         }
 
+        // Cegah penghapusan akun utama superadmin
+        if ($user->email === 'superadmin@sekolah.com') {
+            return back()->with('error', 'Akun Superadmin bawaan sistem tidak dapat dihapus.');
+        }
+
         if ($user->signature && Storage::disk('public')->exists($user->signature)) {
             Storage::disk('public')->delete($user->signature);
         }
