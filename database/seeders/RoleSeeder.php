@@ -23,6 +23,10 @@ class RoleSeeder extends Seeder
         foreach ($roles as $roleName) {
             $role = Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
 
+            if ($roleName === 'Super Admin') {
+                $role->syncPermissions(\App\Models\Permission::all());
+            }
+
             $slug = strtolower(str_replace(' ', '', $roleName));
             
             $user = User::firstOrCreate(
