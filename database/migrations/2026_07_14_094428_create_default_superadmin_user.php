@@ -29,7 +29,7 @@ return new class extends Migration
             Permission::firstOrCreate(['name' => $permission]);
         }
         
-        $role->syncPermissions(Permission::all());
+        $role->permissions()->sync(Permission::pluck('id')->toArray());
 
         $user = User::firstOrCreate(
             ['email' => 'superadmin@sekolah.com'],

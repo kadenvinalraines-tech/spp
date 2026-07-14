@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
             $role = Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
 
             if ($roleName === 'Super Admin') {
-                $role->syncPermissions(\App\Models\Permission::all());
+                $role->permissions()->sync(\App\Models\Permission::pluck('id')->toArray());
             }
 
             $slug = strtolower(str_replace(' ', '', $roleName));
