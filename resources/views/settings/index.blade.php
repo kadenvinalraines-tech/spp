@@ -73,7 +73,10 @@
                                         @if(isset($settings['school_logo']))
                                             <img src="{{ Storage::url($settings['school_logo']) }}" alt="Logo" class="img-fluid mb-2 border p-1 rounded" style="max-height: 120px;">
                                         @endif
-                                        <input type="file" name="school_logo" class="form-control form-control-sm" accept="image/*">
+                                        <input type="file" name="school_logo" class="form-control form-control-sm @error('school_logo') is-invalid @enderror" accept="image/*">
+                                        @error('school_logo')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -82,7 +85,10 @@
                                         @if(isset($settings['school_stamp']))
                                             <img src="{{ Storage::url($settings['school_stamp']) }}" alt="Stempel" class="img-fluid mb-2 border p-1 rounded" style="max-height: 120px;">
                                         @endif
-                                        <input type="file" name="school_stamp" class="form-control form-control-sm" accept="image/*">
+                                        <input type="file" name="school_stamp" class="form-control form-control-sm @error('school_stamp') is-invalid @enderror" accept="image/*">
+                                        @error('school_stamp')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +120,11 @@
                                         @if(isset($settings['app_logo']))
                                             <img src="{{ Storage::url($settings['app_logo']) }}" alt="App Logo" class="img-fluid mb-2 border p-1 rounded" style="max-height: 80px;">
                                         @endif
-                                        <input type="file" name="app_logo" class="form-control form-control-sm" accept="image/*">
-                                        <div class="form-text">Logo untuk pojok kiri atas aplikasi dan halaman login.</div>
+                                        <input type="file" name="app_logo" class="form-control form-control-sm @error('app_logo') is-invalid @enderror" accept="image/*">
+                                        @error('app_logo')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                        <div class="form-text">Logo untuk pojok kiri atas aplikasi dan halaman login. (Maks 2MB)</div>
                                     </div>
                                 </div>
                             </div>

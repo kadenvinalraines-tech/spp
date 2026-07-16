@@ -47,6 +47,11 @@ class SettingController extends Controller
                     $fileKey => 'image|mimes:jpeg,png,jpg|max:2048'
                 ]);
 
+                $oldPath = SchoolSetting::get($fileKey);
+                if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+
                 $path = $request->file($fileKey)->store('settings', 'public');
                 
                 SchoolSetting::updateOrCreate(
