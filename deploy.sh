@@ -22,14 +22,19 @@ composer install --optimize-autoloader --no-dev
 echo "=> Menjalankan migrasi database..."
 php artisan migrate --force
 
-# 5. Refresh semua cache sistem
+# 5. Build aset Frontend (Vite)
+echo "=> Membangun aset frontend..."
+npm install
+npm run build
+
+# 6. Refresh semua cache sistem
 echo "=> Membersihkan dan membangun ulang cache..."
 php artisan optimize:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# 6. Buka kembali sistem
+# 7. Buka kembali sistem
 echo "=> Menonaktifkan mode maintenance..."
 php artisan up
 
