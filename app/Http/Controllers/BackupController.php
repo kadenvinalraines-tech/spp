@@ -43,7 +43,7 @@ class BackupController extends Controller
             // Send via WA
             $caption = "*[OTOMATIS]*\nBerikut adalah file backup database SKS tanggal " . date('d M Y H:i:s') . ". \n\nHarap simpan file ini dengan aman.";
             
-            $gatewayUrl = env('WA_GATEWAY_URL', 'http://localhost:3000');
+            $gatewayUrl = \App\Models\SchoolSetting::get('wa_gateway_url', env('WA_GATEWAY_URL', 'http://localhost:3000'));
             $response = Http::post(rtrim($gatewayUrl, '/') . '/send-bulk', [
                 'messages' => [
                     [

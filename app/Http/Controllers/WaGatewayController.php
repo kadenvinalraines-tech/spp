@@ -12,7 +12,7 @@ class WaGatewayController extends Controller
 {
     private function getGatewayUrl()
     {
-        return env('WA_GATEWAY_URL', 'http://localhost:3000');
+        return \App\Models\SchoolSetting::get('wa_gateway_url', env('WA_GATEWAY_URL', 'http://localhost:3000'));
     }
 
     public function index()

@@ -195,8 +195,14 @@
                         <!-- TAB WHATSAPP -->
                         <div class="tab-pane fade" id="v-pills-wa" role="tabpanel">
                             <h5 class="mb-4 text-primary">Konfigurasi WhatsApp Gateway (Lokal)</h5>
-                            <div class="alert alert-success">
-                                <i class="bi bi-check-circle me-2"></i> Sistem terhubung dengan Node.js Local Gateway di <code>http://localhost:3000</code>.
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i> Sistem secara default terhubung ke <code>http://localhost:3000</code> jika tidak diubah.
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">URL WA Gateway (IP / Localhost)</label>
+                                <input type="text" name="wa_gateway_url" class="form-control" value="{{ $settings['wa_gateway_url'] ?? env('WA_GATEWAY_URL', 'http://localhost:3000') }}" placeholder="http://localhost:3000">
+                                <div class="form-text">Biarkan <code>http://localhost:3000</code> jika aplikasi SPP dan WA Gateway berada di 1 VPS (server) yang sama. Ubah ke IP publik (contoh: <code>http://192.168.1.1:3000</code>) jika dipisah.</div>
                             </div>
 
                             {{-- PENGATURAN DELAY --}}

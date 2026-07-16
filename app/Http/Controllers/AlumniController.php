@@ -166,7 +166,7 @@ class AlumniController extends Controller
         try {
             $delayMin = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3));
             $delayMax = intval(\App\Models\SchoolSetting::get('wa_delay_max', 7));
-            $gatewayUrl = env('WA_GATEWAY_URL', 'http://localhost:3000');
+            $gatewayUrl = \App\Models\SchoolSetting::get('wa_gateway_url', env('WA_GATEWAY_URL', 'http://localhost:3000'));
             
             \Illuminate\Support\Facades\Http::timeout(5)->post($gatewayUrl . '/send-bulk', [
                 'messages' => [
