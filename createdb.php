@@ -1,0 +1,1 @@
+<?php try { $pdo = new PDO("mysql:host=127.0.0.1;port=3306", "root", ""); $pdo->exec("CREATE DATABASE IF NOT EXISTS db_keuangan_sekolah_v2"); echo "OK"; } catch(Exception $e) { echo $e->getMessage(); }

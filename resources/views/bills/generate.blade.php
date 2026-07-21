@@ -32,6 +32,7 @@
                     <label for="class_id" class="form-label">Kelas <span class="text-danger">*</span></label>
                     <select class="form-select @error('class_id') is-invalid @enderror" id="class_id" name="class_id" required>
                         <option value="">-- Pilih Kelas --</option>
+                        <option value="all" {{ old('class_id') == 'all' ? 'selected' : '' }}>-- Semua Kelas --</option>
                         @foreach($classes as $class)
                             <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
                                 {{ $class->name }}

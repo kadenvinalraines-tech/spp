@@ -72,64 +72,85 @@ class PaymentController extends Controller
         try {
             DB::beginTransaction();
 
-            $billDetail = BillDetail::with('bill')->lockForUpdate()->findOrFail($data['bill_detail_id']);
-            $bill = $billDetail->bill;
+            $totalAmountToPay = 0;
+            $studentId = null;
+            $studentNis = null;
+            $billDetails = [];
+            
+            foreach ($data['payments'] as $paymentData) {
+                $billDetail = BillDetail::with('bill.student')->lockForUpdate()->findOrFail($paymentData['bill_detail_id']);
+                $amountToPay = floatval($paymentData['amount']);
+                
+                $remainingAmount = $billDetail->amount - $billDetail->paid_amount;
+                if ($amountToPay > $remainingAmount) {
+                    return back()->with('error', 'Nominal bayar melebihi sisa tagihan pada salah satu item.');
+                }
+                
+                $totalAmountToPay += $amountToPay;
+                if (!$studentId) {
+                    $studentId = $billDetail->bill->student_id;
+                    $studentNis = $billDetail->bill->student->nis;
+                }
+                
+                $billDetails[] = [
+                    'model' => $billDetail,
+                    'amountToPay' => $amountToPay,
+                ];
+            }
 
-            $amountToPay = floatval($data['amount']);
-            $remainingAmount = $billDetail->amount - $billDetail->paid_amount;
-
-            if ($amountToPay > $remainingAmount) {
-                return back()->with('error', 'Nominal bayar melebihi sisa tagihan.');
+            if ($totalAmountToPay <= 0) {
+                 return back()->with('error', 'Total nominal bayar tidak valid.');
             }
 
             $activeYearId = \App\Models\AcademicYear::getActiveId();
 
-            // Generate Transaction Number (Format: YYYYMMDD-NIS-SEQ)
             $todayDate = now()->toDateString();
             $todayCount = Payment::whereDate('created_at', $todayDate)->count() + 1;
             $sequence = str_pad($todayCount, 3, '0', STR_PAD_LEFT);
-            $transactionNumber = date('Ymd') . '-' . $bill->student->nis . '-' . $sequence;
+            $transactionNumber = date('Ymd') . '-' . $studentNis . '-' . $sequence;
 
             $payment = Payment::create([
                 'transaction_number' => $transactionNumber,
-                'student_id' => $bill->student_id,
+                'student_id' => $studentId,
                 'user_id' => auth()->id(),
                 'academic_year_id' => $activeYearId,
                 'date' => now()->toDateString(),
-                'total_amount' => $amountToPay,
+                'total_amount' => $totalAmountToPay,
                 'payment_method' => $data['payment_method'],
                 'status' => 'success',
             ]);
 
-            // Create PaymentDetail
-            PaymentDetail::create([
-                'payment_id' => $payment->id,
-                'bill_detail_id' => $billDetail->id,
-                'amount_paid' => $amountToPay,
-            ]);
+            foreach ($billDetails as $item) {
+                $bd = $item['model'];
+                $amt = $item['amountToPay'];
+                $bill = $bd->bill;
+                
+                PaymentDetail::create([
+                    'payment_id' => $payment->id,
+                    'bill_detail_id' => $bd->id,
+                    'amount_paid' => $amt,
+                ]);
 
-            // Update BillDetail
-            $billDetail->paid_amount += $amountToPay;
-            if ($billDetail->paid_amount >= $billDetail->amount) {
-                $billDetail->status = 'paid';
-            }
-            $billDetail->save();
+                $bd->paid_amount += $amt;
+                if ($bd->paid_amount >= $bd->amount) {
+                    $bd->status = 'paid';
+                }
+                $bd->save();
 
-            // Update parent Bill
-            $bill->total_paid += $amountToPay;
-            if ($bill->total_paid >= $bill->total_amount) {
-                $bill->status = 'paid';
-            } else {
-                $bill->status = 'partial';
+                $bill->total_paid += $amt;
+                if ($bill->total_paid >= $bill->total_amount) {
+                    $bill->status = 'paid';
+                } else {
+                    $bill->status = 'partial';
+                }
+                $bill->save();
             }
-            $bill->save();
 
             DB::commit();
 
-            // Kirim notifikasi WA (Dipisahkan ke method private)
-            $this->sendWaNotification($bill, $billDetail, $amountToPay);
+            $this->sendWaNotification($payment);
 
-            return redirect()->back()->with('success', "Pembayaran berhasil diproses dengan No Transaksi: {$transactionNumber}");
+            return redirect()->back()->with('success', "Pembayaran massal berhasil diproses dengan No Transaksi: {$transactionNumber}");
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -147,9 +168,10 @@ class PaymentController extends Controller
         return $pdf->stream("kuitansi-{$payment->transaction_number}.pdf");
     }
 
-    private function sendWaNotification(Bill $bill, BillDetail $billDetail, float $amountToPay)
+    private function sendWaNotification(Payment $payment)
     {
-        $student = $bill->student;
+        $payment->load(['student', 'details.billDetail.bill.financePost']);
+        $student = $payment->student;
         if (!$student || !$student->phone) return;
 
         try {
@@ -158,11 +180,16 @@ class PaymentController extends Controller
                 $templateText = "TERIMA KASIH\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\nKami telah menerima pembayaran sebesar *Rp [NOMINAL_BAYAR]*.\n\nRincian Pembayaran:\n[RINCIAN_BAYAR]\n\nSisa Tunggakan Saat Ini: *Rp [SISA_TAGIHAN]*\nTerima kasih atas kerja samanya.";
             }
 
-            $namaPos = $bill->financePost->name ?? 'Tagihan';
-            if ($billDetail->month) {
-                $namaPos .= " (" . $billDetail->month . ")";
+            $rincianBayarArr = [];
+            foreach ($payment->details as $pd) {
+                $bd = $pd->billDetail;
+                $namaPos = $bd->bill->financePost->name ?? 'Tagihan';
+                if ($bd->month) {
+                    $namaPos .= " (" . $bd->month . ")";
+                }
+                $rincianBayarArr[] = "- " . $namaPos . ": Rp " . number_format($pd->amount_paid, 0, ',', '.');
             }
-            $rincianBayar = "- " . $namaPos . ": Rp " . number_format($amountToPay, 0, ',', '.');
+            $rincianBayar = implode("\n", $rincianBayarArr);
             
             // Hitung Sisa Tunggakan dan Rinciannya
             $unpaidBills = Bill::with('financePost')->where('student_id', $student->id)->get();
@@ -180,7 +207,7 @@ class PaymentController extends Controller
             
             $rincianTunggakanText = empty($rincianTunggakanArr) ? "Tidak ada tunggakan." : implode("\n", $rincianTunggakanArr);
 
-            $formattedBayar = number_format($amountToPay, 0, ',', '.');
+            $formattedBayar = number_format($payment->total_amount, 0, ',', '.');
             $formattedSisa = number_format($sisaTunggakan, 0, ',', '.');
             $rincianSisaText = $formattedSisa . "\n\nRincian Tunggakan:\n" . $rincianTunggakanText;
 

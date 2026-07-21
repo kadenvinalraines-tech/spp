@@ -64,9 +64,16 @@ class BillController extends Controller
         $activeYearId = \App\Models\AcademicYear::getActiveId();
         $yearIds = \App\Models\AcademicYear::getSameYearIds($activeYearId);
 
-        $schoolClass = SchoolClass::findOrFail($data['class_id']);
-
-        $students = $schoolClass->students()->wherePivotIn('academic_year_id', $yearIds)->where('status', 'active')->get();
+        if ($data['class_id'] === 'all') {
+            $students = \App\Models\Student::whereHas('studentClasses', function($q) use ($yearIds) {
+                $q->whereIn('academic_year_id', $yearIds);
+            })->where('status', 'active')->get();
+            $className = 'Semua Kelas';
+        } else {
+            $schoolClass = SchoolClass::findOrFail($data['class_id']);
+            $students = $schoolClass->students()->wherePivotIn('academic_year_id', $yearIds)->where('status', 'active')->get();
+            $className = $schoolClass->name;
+        }
 
         if ($students->isEmpty()) {
             return back()->with('error', 'Tidak ada siswa aktif di kelas yang dipilih.')->withInput();
@@ -120,7 +127,7 @@ class BillController extends Controller
 
             if ($generatedCount > 0) {
                 return redirect()->route('bills.index')
-                    ->with('success', "Berhasil me-generate tagihan untuk {$generatedCount} siswa di kelas {$schoolClass->name}.");
+                    ->with('success', "Berhasil me-generate tagihan untuk {$generatedCount} siswa di kelas {$className}.");
             } else {
                 return redirect()->route('bills.index')
                     ->with('warning', 'Semua siswa aktif di kelas ini sudah memiliki tagihan yang sama (tidak ada tagihan baru yang digenerate).');

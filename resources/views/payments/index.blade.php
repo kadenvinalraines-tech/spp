@@ -103,10 +103,10 @@
                                     <table class="table table-bordered align-middle">
                                         <thead class="table-light">
                                             <tr>
+                                                <th width="40"><input type="checkbox" class="form-check-input" id="checkAll"></th>
                                                 <th>Deskripsi</th>
                                                 <th>Total Tagihan</th>
                                                 <th>Sisa Tagihan</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -118,32 +118,17 @@
                                                     @php $grandTotalSisa += $sisa; @endphp
                                                     <tr>
                                                         <td>
+                                                            <input type="checkbox" class="form-check-input bill-check" 
+                                                                data-id="{{ $detail->id }}" 
+                                                                data-sisa="{{ $sisa }}" 
+                                                                data-desc="{{ $bill->financePost->name }} {{ $detail->month ? '('.$detail->month.')' : '' }}">
+                                                        </td>
+                                                        <td>
                                                             <strong>{{ $bill->financePost->name }}</strong><br>
                                                             <small class="text-muted">{{ $bill->academicYear->name }} (Semester {{ $bill->academicYear->semester }}) | Inv: {{ $bill->invoice_number }}</small>
                                                         </td>
                                                         <td>Rp {{ number_format($detail->amount, 0, ',', '.') }}</td>
                                                         <td class="text-danger fw-bold">Rp {{ number_format($sisa, 0, ',', '.') }}</td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center gap-1">
-                                                                <button class="btn btn-sm btn-primary btn-pay" 
-                                                                        data-id="{{ $detail->id }}" 
-                                                                        data-desc="{{ $bill->financePost->name }}" 
-                                                                        data-sisa="{{ $sisa }}"
-                                                                        data-bs-toggle="modal" data-bs-target="#payModal">
-                                                                    Bayar
-                                                                </button>
-                                                                @if($student->phone)
-                                                                <form action="{{ route('wa-gateway.send-bulk') }}" method="POST" class="m-0">
-                                                                    @csrf
-                                                                    <input type="hidden" name="student_ids[]" value="{{ $student->id }}">
-                                                                    <input type="hidden" name="type" value="personal">
-                                                                    <button type="submit" class="btn btn-sm btn-success" title="Kirim Tagihan via WA" onclick="return confirm('Kirim rincian seluruh tagihan via WhatsApp ke siswa ini?');">
-                                                                        <i class="bi bi-whatsapp"></i>
-                                                                    </button>
-                                                                </form>
-                                                                @endif
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                     @endif
                                                 @endforeach
@@ -151,9 +136,17 @@
                                         </tbody>
                                         <tfoot class="table-light">
                                             <tr>
-                                                <th colspan="2" class="text-end">Total Seluruh Tunggakan:</th>
-                                                <th class="text-danger fw-bold fs-6">Rp {{ number_format($grandTotalSisa, 0, ',', '.') }}</th>
-                                                <th></th>
+                                                <td colspan="4">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <button class="btn btn-primary" id="btnPaySelected" disabled data-bs-toggle="modal" data-bs-target="#payModal">
+                                                            Bayar Terpilih (0 item)
+                                                        </button>
+                                                        <div class="text-end">
+                                                            <span class="text-muted">Total Seluruh Tunggakan:</span>
+                                                            <strong class="text-danger fs-6 ms-2">Rp {{ number_format($grandTotalSisa, 0, ',', '.') }}</strong>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -216,21 +209,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="bill_detail_id" id="modal_bill_detail_id">
+                    <div id="hiddenInputsContainer"></div>
                     
                     <div class="mb-3">
-                        <label class="form-label">Deskripsi Tagihan</label>
-                        <input type="text" class="form-control" id="modal_desc" readonly>
+                        <label class="form-label">Rincian Tagihan yang Dipilih</label>
+                        <ul class="list-group mb-2" id="modal_desc_list">
+                            <!-- Diisi via JS -->
+                        </ul>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Sisa Tagihan (Lunas)</label>
-                        <input type="text" class="form-control text-danger fw-bold" id="modal_sisa_text" readonly>
+                        <label class="form-label">Total Harus Dibayar</label>
+                        <input type="text" class="form-control text-danger fw-bold fs-4" id="modal_sisa_text" readonly>
                         <input type="hidden" id="modal_sisa_val">
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nominal Bayar <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="amount" id="modal_amount" min="1" required>
-                        <div class="form-text">Bisa diisi kurang dari sisa tagihan untuk <strong>Cicilan</strong>. Jika dibayar pas, otomatis <strong>Lunas</strong>.</div>
+                    <div class="alert alert-info">
+                        <strong>Perhatian:</strong> Pembayaran massal akan melunasi seluruh item tagihan yang dipilih secara penuh. Cicilan (pembayaran sebagian) tidak didukung pada fitur Bayar Sekaligus.
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Metode Pembayaran</label>
@@ -270,20 +263,88 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             btnSearch.disabled = !found;
+            if (found) {
+                btnSearch.closest('form').submit();
+            }
         });
     }
 
-    const payButtons = document.querySelectorAll('.btn-pay');
-    payButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.getElementById('modal_bill_detail_id').value = this.dataset.id;
-            document.getElementById('modal_desc').value = this.dataset.desc;
-            document.getElementById('modal_sisa_val').value = this.dataset.sisa;
-            document.getElementById('modal_sisa_text').value = 'Rp ' + parseInt(this.dataset.sisa).toLocaleString('id-ID');
-            document.getElementById('modal_amount').value = this.dataset.sisa; // Auto full
-            document.getElementById('modal_amount').max = this.dataset.sisa;
+    const checkAll = document.getElementById('checkAll');
+    const billChecks = document.querySelectorAll('.bill-check');
+    const btnPaySelected = document.getElementById('btnPaySelected');
+
+    function updatePayButton() {
+        const checkedCount = document.querySelectorAll('.bill-check:checked').length;
+        if (btnPaySelected) {
+            btnPaySelected.disabled = checkedCount === 0;
+            btnPaySelected.textContent = `Bayar Terpilih (${checkedCount} item)`;
+        }
+    }
+
+    if (checkAll) {
+        checkAll.addEventListener('change', function() {
+            billChecks.forEach(cb => {
+                cb.checked = this.checked;
+            });
+            updatePayButton();
+        });
+    }
+
+    billChecks.forEach(cb => {
+        cb.addEventListener('change', function() {
+            if (!this.checked && checkAll) {
+                checkAll.checked = false;
+            }
+            updatePayButton();
         });
     });
+
+    const payModal = document.getElementById('payModal');
+    if (payModal) {
+        payModal.addEventListener('show.bs.modal', function () {
+            const selectedChecks = document.querySelectorAll('.bill-check:checked');
+            const hiddenInputsContainer = document.getElementById('hiddenInputsContainer');
+            const listContainer = document.getElementById('modal_desc_list');
+            const sisaText = document.getElementById('modal_sisa_text');
+            const sisaVal = document.getElementById('modal_sisa_val');
+
+            hiddenInputsContainer.innerHTML = '';
+            listContainer.innerHTML = '';
+            let total = 0;
+            let index = 0;
+
+            selectedChecks.forEach(cb => {
+                const id = cb.getAttribute('data-id');
+                const sisa = parseInt(cb.getAttribute('data-sisa'));
+                const desc = cb.getAttribute('data-desc');
+
+                total += sisa;
+
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = `payments[${index}][bill_detail_id]`;
+                inputId.value = id;
+                
+                const inputAmount = document.createElement('input');
+                inputAmount.type = 'hidden';
+                inputAmount.name = `payments[${index}][amount]`;
+                inputAmount.value = sisa;
+
+                hiddenInputsContainer.appendChild(inputId);
+                hiddenInputsContainer.appendChild(inputAmount);
+
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `${desc} <span>Rp ${sisa.toLocaleString('id-ID')}</span>`;
+                listContainer.appendChild(li);
+
+                index++;
+            });
+
+            sisaVal.value = total;
+            sisaText.value = 'Rp ' + total.toLocaleString('id-ID');
+        });
+    }
 });
 </script>
 @endsection

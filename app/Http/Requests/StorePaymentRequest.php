@@ -14,8 +14,9 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bill_detail_id' => ['required', 'exists:bill_details,id'],
-            'amount' => ['required', 'numeric', 'min:1'],
+            'payments' => ['required', 'array', 'min:1'],
+            'payments.*.bill_detail_id' => ['required', 'exists:bill_details,id'],
+            'payments.*.amount' => ['required', 'numeric', 'min:1'],
             'payment_method' => ['required', 'string'],
         ];
     }
