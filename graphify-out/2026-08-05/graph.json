@@ -8179,9 +8179,9 @@
       "source_file": "app/Console/Commands/SendDueRemindersCommand.php",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "app_console_commands_sendduereminderscommand",
       "community": 0,
-      "norm_label": "sendduereminderscommand.php",
-      "id": "app_console_commands_sendduereminderscommand"
+      "norm_label": "sendduereminderscommand.php"
     },
     {
       "label": "SendDueRemindersCommand",
@@ -8189,9 +8189,9 @@
       "source_file": "app/Console/Commands/SendDueRemindersCommand.php",
       "source_location": "L11",
       "_origin": "ast",
+      "id": "app_console_commands_sendduereminderscommand_sendduereminderscommand",
       "community": 0,
-      "norm_label": "sendduereminderscommand",
-      "id": "app_console_commands_sendduereminderscommand_sendduereminderscommand"
+      "norm_label": "sendduereminderscommand"
     },
     {
       "label": ".handle()",
@@ -8199,9 +8199,9 @@
       "source_file": "app/Console/Commands/SendDueRemindersCommand.php",
       "source_location": "L30",
       "_origin": "ast",
+      "id": "app_console_commands_sendduereminderscommand_sendduereminderscommand_handle",
       "community": 0,
-      "norm_label": ".handle()",
-      "id": "app_console_commands_sendduereminderscommand_sendduereminderscommand_handle"
+      "norm_label": ".handle()"
     },
     {
       "label": "WaGatewayController.php",
@@ -8209,9 +8209,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller",
       "community": 0,
-      "norm_label": "wagatewaycontroller.php",
-      "id": "app_http_controllers_wagatewaycontroller"
+      "norm_label": "wagatewaycontroller.php"
     },
     {
       "label": "WaGatewayController",
@@ -8219,9 +8219,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L11",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
       "community": 17,
-      "norm_label": "wagatewaycontroller",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller"
+      "norm_label": "wagatewaycontroller"
     },
     {
       "label": "Controller",
@@ -8229,9 +8229,9 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
+      "id": "controller",
       "community": 17,
-      "norm_label": "controller",
-      "id": "controller"
+      "norm_label": "controller"
     },
     {
       "label": ".getGatewayUrl()",
@@ -8239,9 +8239,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L13",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl",
       "community": 17,
-      "norm_label": ".getgatewayurl()",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl"
+      "norm_label": ".getgatewayurl()"
     },
     {
       "label": ".index()",
@@ -8249,9 +8249,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L18",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_index",
       "community": 17,
-      "norm_label": ".index()",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_index"
+      "norm_label": ".index()"
     },
     {
       "label": ".status()",
@@ -8259,9 +8259,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L23",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status",
       "community": 17,
-      "norm_label": ".status()",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status"
+      "norm_label": ".status()"
     },
     {
       "label": ".sendBulk()",
@@ -8269,9 +8269,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L33",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk",
       "community": 17,
-      "norm_label": ".sendbulk()",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk"
+      "norm_label": ".sendbulk()"
     },
     {
       "label": ".sendDueReminders()",
@@ -8279,9 +8279,9 @@
       "source_file": "app/Http/Controllers/WaGatewayController.php",
       "source_location": "L172",
       "_origin": "ast",
+      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendduereminders",
       "community": 17,
-      "norm_label": ".sendduereminders()",
-      "id": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendduereminders"
+      "norm_label": ".sendduereminders()"
     },
     {
       "label": "Bill.php",
@@ -8289,9 +8289,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "app_models_bill",
       "community": 0,
-      "norm_label": "bill.php",
-      "id": "app_models_bill"
+      "norm_label": "bill.php"
     },
     {
       "label": "Bill",
@@ -8299,9 +8299,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L10",
       "_origin": "ast",
+      "id": "app_models_bill_bill",
       "community": 0,
-      "norm_label": "bill",
-      "id": "app_models_bill_bill"
+      "norm_label": "bill"
     },
     {
       "label": ".student()",
@@ -8309,9 +8309,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L16",
       "_origin": "ast",
+      "id": "app_models_bill_bill_student",
       "community": 0,
-      "norm_label": ".student()",
-      "id": "app_models_bill_bill_student"
+      "norm_label": ".student()"
     },
     {
       "label": ".academicYear()",
@@ -8319,9 +8319,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L21",
       "_origin": "ast",
+      "id": "app_models_bill_bill_academicyear",
       "community": 0,
-      "norm_label": ".academicyear()",
-      "id": "app_models_bill_bill_academicyear"
+      "norm_label": ".academicyear()"
     },
     {
       "label": ".financePost()",
@@ -8329,9 +8329,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L26",
       "_origin": "ast",
+      "id": "app_models_bill_bill_financepost",
       "community": 0,
-      "norm_label": ".financepost()",
-      "id": "app_models_bill_bill_financepost"
+      "norm_label": ".financepost()"
     },
     {
       "label": ".details()",
@@ -8339,9 +8339,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L31",
       "_origin": "ast",
+      "id": "app_models_bill_bill_details",
       "community": 0,
-      "norm_label": ".details()",
-      "id": "app_models_bill_bill_details"
+      "norm_label": ".details()"
     },
     {
       "label": ".getDueReminderStatusAttribute()",
@@ -8349,9 +8349,9 @@
       "source_file": "app/Models/Bill.php",
       "source_location": "L36",
       "_origin": "ast",
+      "id": "app_models_bill_bill_getduereminderstatusattribute",
       "community": 0,
-      "norm_label": ".getduereminderstatusattribute()",
-      "id": "app_models_bill_bill_getduereminderstatusattribute"
+      "norm_label": ".getduereminderstatusattribute()"
     },
     {
       "label": "config/app.php",
@@ -8359,9 +8359,9 @@
       "source_file": "config/app.php",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "config_app",
       "community": 64,
-      "norm_label": "config/app.php",
-      "id": "config_app"
+      "norm_label": "config/app.php"
     },
     {
       "label": "academic-years/index.blade.php",
@@ -8369,9 +8369,9 @@
       "source_file": "resources/views/academic-years/index.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_academic_years_index_blade",
       "community": 78,
-      "norm_label": "academic-years/index.blade.php",
-      "id": "resources_views_academic_years_index_blade"
+      "norm_label": "academic-years/index.blade.php"
     },
     {
       "label": "audit-trails/index.blade.php",
@@ -8379,9 +8379,9 @@
       "source_file": "resources/views/audit-trails/index.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_audit_trails_index_blade",
       "community": 82,
-      "norm_label": "audit-trails/index.blade.php",
-      "id": "resources_views_audit_trails_index_blade"
+      "norm_label": "audit-trails/index.blade.php"
     },
     {
       "label": "bills/index.blade.php",
@@ -8389,9 +8389,9 @@
       "source_file": "resources/views/bills/index.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_bills_index_blade",
       "community": 91,
-      "norm_label": "bills/index.blade.php",
-      "id": "resources_views_bills_index_blade"
+      "norm_label": "bills/index.blade.php"
     },
     {
       "label": "expenses/index.blade.php",
@@ -8399,9 +8399,9 @@
       "source_file": "resources/views/expenses/index.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_expenses_index_blade",
       "community": 116,
-      "norm_label": "expenses/index.blade.php",
-      "id": "resources_views_expenses_index_blade"
+      "norm_label": "expenses/index.blade.php"
     },
     {
       "label": "expenses/show.blade.php",
@@ -8409,9 +8409,9 @@
       "source_file": "resources/views/expenses/show.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_expenses_show_blade",
       "community": 117,
-      "norm_label": "expenses/show.blade.php",
-      "id": "resources_views_expenses_show_blade"
+      "norm_label": "expenses/show.blade.php"
     },
     {
       "label": "payments/index.blade.php",
@@ -8419,9 +8419,9 @@
       "source_file": "resources/views/payments/index.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_payments_index_blade",
       "community": 124,
-      "norm_label": "payments/index.blade.php",
-      "id": "resources_views_payments_index_blade"
+      "norm_label": "payments/index.blade.php"
     },
     {
       "label": "reports/arrear.blade.php",
@@ -8429,9 +8429,9 @@
       "source_file": "resources/views/reports/arrear.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_arrear_blade",
       "community": 130,
-      "norm_label": "reports/arrear.blade.php",
-      "id": "resources_views_reports_arrear_blade"
+      "norm_label": "reports/arrear.blade.php"
     },
     {
       "label": "reports/cash.blade.php",
@@ -8439,9 +8439,9 @@
       "source_file": "resources/views/reports/cash.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_cash_blade",
       "community": 131,
-      "norm_label": "reports/cash.blade.php",
-      "id": "resources_views_reports_cash_blade"
+      "norm_label": "reports/cash.blade.php"
     },
     {
       "label": "reports/expense.blade.php",
@@ -8449,9 +8449,9 @@
       "source_file": "resources/views/reports/expense.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_expense_blade",
       "community": 132,
-      "norm_label": "reports/expense.blade.php",
-      "id": "resources_views_reports_expense_blade"
+      "norm_label": "reports/expense.blade.php"
     },
     {
       "label": "reports/payment.blade.php",
@@ -8459,9 +8459,9 @@
       "source_file": "resources/views/reports/payment.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_payment_blade",
       "community": 134,
-      "norm_label": "reports/payment.blade.php",
-      "id": "resources_views_reports_payment_blade"
+      "norm_label": "reports/payment.blade.php"
     },
     {
       "label": "print/cash.blade.php",
@@ -8469,9 +8469,9 @@
       "source_file": "resources/views/reports/print/cash.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_print_cash_blade",
       "community": 136,
-      "norm_label": "print/cash.blade.php",
-      "id": "resources_views_reports_print_cash_blade"
+      "norm_label": "print/cash.blade.php"
     },
     {
       "label": "print/expense.blade.php",
@@ -8479,9 +8479,9 @@
       "source_file": "resources/views/reports/print/expense.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_print_expense_blade",
       "community": 137,
-      "norm_label": "print/expense.blade.php",
-      "id": "resources_views_reports_print_expense_blade"
+      "norm_label": "print/expense.blade.php"
     },
     {
       "label": "print/payment.blade.php",
@@ -8489,9 +8489,9 @@
       "source_file": "resources/views/reports/print/payment.blade.php",
       "source_location": null,
       "_origin": "ast",
+      "id": "resources_views_reports_print_payment_blade",
       "community": 138,
-      "norm_label": "print/payment.blade.php",
-      "id": "resources_views_reports_print_payment_blade"
+      "norm_label": "print/payment.blade.php"
     }
   ],
   "links": [
@@ -17726,9 +17726,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand",
-      "target": "app_models_schoolsetting"
+      "target": "app_models_schoolsetting",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -17783,9 +17783,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller",
-      "target": "app_models_student"
+      "target": "app_models_student",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -18670,9 +18670,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill",
-      "target": "app_traits_auditable"
+      "target": "app_traits_auditable",
+      "confidence_score": 1.0
     },
     {
       "relation": "mixes_in",
@@ -18681,9 +18681,9 @@
       "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_traits_auditable"
+      "target": "app_traits_auditable",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21804,9 +21804,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand",
-      "target": "illuminate_console_command"
+      "target": "illuminate_console_command",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -21815,9 +21815,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand_sendduereminderscommand",
-      "target": "illuminate_console_command"
+      "target": "illuminate_console_command",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -21827,9 +21827,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21839,9 +21839,9 @@
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk",
-      "target": "illuminate_http_request"
+      "target": "illuminate_http_request",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -21851,9 +21851,9 @@
       "source_location": "L5",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill",
-      "target": "illuminate_database_eloquent_model"
+      "target": "illuminate_database_eloquent_model",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -21862,9 +21862,9 @@
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "illuminate_database_eloquent_model"
+      "target": "illuminate_database_eloquent_model",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -21874,9 +21874,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill",
-      "target": "illuminate_database_eloquent_relations_belongsto"
+      "target": "illuminate_database_eloquent_relations_belongsto",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21886,9 +21886,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill_academicyear",
-      "target": "illuminate_database_eloquent_relations_belongsto"
+      "target": "illuminate_database_eloquent_relations_belongsto",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21898,9 +21898,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill_financepost",
-      "target": "illuminate_database_eloquent_relations_belongsto"
+      "target": "illuminate_database_eloquent_relations_belongsto",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21910,9 +21910,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill_student",
-      "target": "illuminate_database_eloquent_relations_belongsto"
+      "target": "illuminate_database_eloquent_relations_belongsto",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -21922,9 +21922,9 @@
       "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill",
-      "target": "illuminate_database_eloquent_relations_hasmany"
+      "target": "illuminate_database_eloquent_relations_hasmany",
+      "confidence_score": 1.0
     },
     {
       "relation": "references",
@@ -21934,9 +21934,9 @@
       "weight": 1.0,
       "context": "return_type",
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill_details",
-      "target": "illuminate_database_eloquent_relations_hasmany"
+      "target": "illuminate_database_eloquent_relations_hasmany",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -21945,9 +21945,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand",
-      "target": "app_console_commands_sendduereminderscommand_sendduereminderscommand"
+      "target": "app_console_commands_sendduereminderscommand_sendduereminderscommand",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -21957,9 +21957,9 @@
       "source_location": "L6",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand",
-      "target": "app_models_bill"
+      "target": "app_models_bill",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -21968,9 +21968,9 @@
       "source_location": "L30",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_console_commands_sendduereminderscommand_sendduereminderscommand",
-      "target": "app_console_commands_sendduereminderscommand_sendduereminderscommand_handle"
+      "target": "app_console_commands_sendduereminderscommand_sendduereminderscommand_handle",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21991,9 +21991,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -22003,9 +22003,9 @@
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller",
-      "target": "app_models_bill"
+      "target": "app_models_bill",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22014,9 +22014,9 @@
       "source_location": "L13",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22025,9 +22025,9 @@
       "source_location": "L18",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_index"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_index",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22036,9 +22036,9 @@
       "source_location": "L33",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22047,9 +22047,9 @@
       "source_location": "L172",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendduereminders"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendduereminders",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22058,9 +22058,9 @@
       "source_location": "L23",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -22069,9 +22069,9 @@
       "source_location": "L11",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
-      "target": "controller"
+      "target": "controller",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -22081,9 +22081,9 @@
       "source_location": "L156",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -22093,9 +22093,9 @@
       "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status",
-      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl"
+      "target": "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22104,9 +22104,9 @@
       "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill",
-      "target": "app_models_bill_bill"
+      "target": "app_models_bill_bill",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22115,9 +22115,9 @@
       "source_location": "L21",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_models_bill_bill_academicyear"
+      "target": "app_models_bill_bill_academicyear",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22126,9 +22126,9 @@
       "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_models_bill_bill_details"
+      "target": "app_models_bill_bill_details",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22137,9 +22137,9 @@
       "source_location": "L26",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_models_bill_bill_financepost"
+      "target": "app_models_bill_bill_financepost",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22148,9 +22148,9 @@
       "source_location": "L36",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_models_bill_bill_getduereminderstatusattribute"
+      "target": "app_models_bill_bill_getduereminderstatusattribute",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -22159,9 +22159,9 @@
       "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
-      "confidence_score": 1.0,
       "source": "app_models_bill_bill",
-      "target": "app_models_bill_bill_student"
+      "target": "app_models_bill_bill_student",
+      "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
