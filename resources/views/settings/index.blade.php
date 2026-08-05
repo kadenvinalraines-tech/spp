@@ -326,12 +326,9 @@
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i> Sinkronisasi Waktu (NTP)</h5>
                                 <div>
-                                    <form action="{{ route('settings.sync-time') }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Sistem akan mencoba menyinkronkan waktu dengan NTP Server. Pastikan web server dijalankan sebagai Administrator. Lanjutkan?')">
-                                            <i class="bi bi-arrow-clockwise me-1"></i> Sinkronisasi Sekarang
-                                        </button>
-                                    </form>
+                                    <button type="submit" form="syncTimeForm" class="btn btn-warning btn-sm" onclick="return confirm('Sistem akan mencoba menyinkronkan waktu dengan NTP Server. Pastikan web server dijalankan sebagai Administrator. Lanjutkan?')">
+                                        <i class="bi bi-arrow-clockwise me-1"></i> Sinkronisasi Sekarang
+                                    </button>
                                     <button type="submit" form="settings-form" class="btn btn-primary btn-sm">
                                         <i class="bi bi-save me-1"></i> Simpan Pengaturan
                                     </button>
@@ -425,6 +422,11 @@
         </div>
     </div>
 </div>
+
+<!-- Sync Time Form (Hidden) -->
+<form id="syncTimeForm" action="{{ route('settings.sync-time') }}" method="POST">
+    @csrf
+</form>
 
 <!-- Restore Database Form (Hidden, triggered by inputs in the tab) -->
 <form id="restoreForm" action="{{ route('backup.restore') }}" method="POST" enctype="multipart/form-data">
