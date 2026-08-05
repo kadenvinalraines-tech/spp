@@ -46,7 +46,7 @@
     <div class="col-lg-9 col-md-8">
         <div class="card border-0 shadow-sm" style="border-radius: 12px;">
             <div class="card-body p-4 p-lg-5">
-                <form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data" id="settings-form">
                     @csrf
 
                     <div class="tab-content" id="v-pills-tabContent">
