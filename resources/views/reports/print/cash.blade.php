@@ -13,7 +13,7 @@
 </head>
 <body onload="{{ $action === 'print' ? 'window.print()' : '' }}">
     <h2 class="text-center">LAPORAN BUKU KAS UMUM</h2>
-    <p class="text-center">Periode: {{ \Carbon\Carbon::parse($startDate)->format('d M Y') }} s/d {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }}</p>
+    <p class="text-center">Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} s/d {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}</p>
 
     <table>
         <thead>
@@ -29,7 +29,7 @@
             @foreach($transactions as $index => $t)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ \Carbon\Carbon::parse($t['date'])->format('d M Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($t['date'])->translatedFormat('d F Y') }}</td>
                     <td>{{ $t['description'] }}</td>
                     <td class="text-end">{{ $t['income'] > 0 ? number_format($t['income'], 0, ',', '.') : '-' }}</td>
                     <td class="text-end">{{ $t['expense'] > 0 ? number_format($t['expense'], 0, ',', '.') : '-' }}</td>

@@ -105,12 +105,14 @@ Route::middleware('auth')->group(function () {
     Route::get('wa-gateway', [\App\Http\Controllers\WaGatewayController::class, 'index'])->name('wa-gateway.index');
     Route::get('wa-gateway/status', [\App\Http\Controllers\WaGatewayController::class, 'status'])->name('wa-gateway.status');
     Route::post('wa-gateway/send-bulk', [\App\Http\Controllers\WaGatewayController::class, 'sendBulk'])->name('wa-gateway.send-bulk');
+    Route::post('wa-gateway/send-due-reminders', [\App\Http\Controllers\WaGatewayController::class, 'sendDueReminders'])->name('wa-gateway.send-due-reminders');
 
     // Settings, Roles, & Users Route
     Route::middleware('permission:manage_settings')->group(function () {
         Route::get('settings', [\App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
         Route::post('settings', [\App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
         Route::post('settings/reset', [\App\Http\Controllers\SettingController::class, 'resetData'])->name('settings.reset');
+        Route::post('settings/sync-time', [\App\Http\Controllers\SettingController::class, 'syncTime'])->name('settings.sync-time');
         Route::get('backup/manual', [\App\Http\Controllers\BackupController::class, 'manualBackup'])->name('backup.manual');
         Route::get('backup/download', [\App\Http\Controllers\BackupController::class, 'downloadBackup'])->name('backup.download');
         Route::post('backup/restore', [\App\Http\Controllers\BackupController::class, 'restoreBackup'])->name('backup.restore');

@@ -67,7 +67,7 @@
                             <td>{{ $ar->academicYear->name ?? '-' }}</td>
                             <td>Rp {{ number_format($ar->total_amount, 0, ',', '.') }}</td>
                             <td class="text-danger fw-bold">Rp {{ number_format($sisa, 0, ',', '.') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($ar->due_date)->format('d M Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($ar->due_date)->translatedFormat('d F Y') }}</td>
                         </tr>
                     @empty
                         <tr>

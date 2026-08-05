@@ -28,8 +28,8 @@
                             <td>{{ $index + 1 }}</td>
                             <td class="fw-bold">{{ $year->name }}</td>
                             <td>{{ $year->semester }}</td>
-                            <td>{{ \Carbon\Carbon::parse($year->start_date)->format('d M Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($year->end_date)->format('d M Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($year->start_date)->translatedFormat('d F Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($year->end_date)->translatedFormat('d F Y') }}</td>
                             <td>
                                 @if($year->is_active)
                                     <span class="badge bg-success"><i class="bi bi-check-circle"></i> Aktif Saat Ini</span>

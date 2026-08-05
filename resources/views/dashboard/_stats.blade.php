@@ -5,6 +5,38 @@
         <h5 class="mb-1 fw-bold text-dark">Ringkasan Statistik</h5>
         <p class="text-muted mb-0" style="font-size: .85rem;">Pantau keuangan sekolah secara real-time</p>
     </div>
+    
+    <!-- Widget Jam & Tanggal -->
+    <div class="px-3 py-2 bg-light rounded-pill border d-flex align-items-center">
+        <i class="bi bi-clock-history text-primary me-2 fs-5"></i>
+        <div>
+            <div id="dashboard-date" class="fw-semibold text-dark" style="font-size: 0.85rem;"></div>
+            <div id="dashboard-clock" class="text-muted fw-bold" style="font-size: 1.1rem; line-height: 1;"></div>
+        </div>
+    </div>
+    
+    <script>
+        function updateDashboardClock() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const dayName = days[now.getDay()];
+            const date = now.getDate();
+            const monthName = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('dashboard-date').textContent = `${dayName}, ${date} ${monthName} ${year}`;
+            document.getElementById('dashboard-clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        
+        setInterval(updateDashboardClock, 1000);
+        updateDashboardClock(); // Panggil sekali di awal
+    </script>
     <form action="{{ url()->current() }}" method="GET" class="d-flex" id="filterForm">
         <select name="filter_range" class="form-select" onchange="document.getElementById('filterForm').submit();" style="min-width: 260px;">
             <optgroup label="Filter Cepat">

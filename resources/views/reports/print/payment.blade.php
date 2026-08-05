@@ -13,7 +13,7 @@
 </head>
 <body onload="{{ $action === 'print' ? 'window.print()' : '' }}">
     <h2 class="text-center">LAPORAN PEMASUKAN / PEMBAYARAN</h2>
-    <p class="text-center">Periode: {{ \Carbon\Carbon::parse($startDate)->format('d M Y') }} s/d {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }}</p>
+    <p class="text-center">Periode: {{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} s/d {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }}</p>
 
     <table>
         <thead>
@@ -31,7 +31,7 @@
             @foreach($payments as $index => $p)
                 <tr>
                     <td class="text-center">{{ $index + 1 }}</td>
-                    <td>{{ \Carbon\Carbon::parse($p->date)->format('d M Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($p->date)->translatedFormat('d F Y') }}</td>
                     <td>{{ $p->transaction_number }}</td>
                     <td>{{ $p->student->name ?? '-' }}</td>
                     <td>{{ $p->student->status == 'graduated' ? 'Alumni (' . $p->student->latest_academic_year_name . ')' : ($p->student->schoolClass->name ?? '-') }}</td>

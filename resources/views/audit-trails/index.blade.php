@@ -73,7 +73,7 @@
                     @forelse($auditTrails as $log)
                         <tr>
                             <td>
-                                <div class="fw-semibold" style="font-size: .85rem;">{{ $log->created_at->format('d M Y') }}</div>
+                                <div class="fw-semibold" style="font-size: .85rem;">{{ $log->created_at->translatedFormat('d F Y') }}</div>
                                 <small class="text-muted">{{ $log->created_at->format('H:i:s') }}</small>
                             </td>
                             <td>

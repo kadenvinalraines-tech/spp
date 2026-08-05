@@ -33,32 +33,33 @@ class WaGatewayController extends Controller
     public function sendBulk(Request $request)
     {
         $request->validate([
-            'student_ids' => 'required|array',
-            'student_ids.*' => 'exists:students,id'
+            'bill_ids' => 'required|array',
+            'bill_ids.*' => 'exists:bills,id'
         ]);
 
-        $students = Student::whereIn('id', $request->student_ids)->get();
+        $bills = \App\Models\Bill::whereIn('id', $request->bill_ids)->with(['student', 'financePost', 'details'])->get();
         
         $messages = [];
         $petugasName = Auth::user()->name;
 
-        foreach ($students as $student) {
-            if (!$student->phone) {
+        // Kelompokkan tagihan berdasarkan siswa
+        $groupedBills = $bills->groupBy('student_id');
+
+        foreach ($groupedBills as $studentId => $studentBills) {
+            $student = $studentBills->first()->student;
+            
+            if (!$student || !$student->phone) {
                 continue; // Lewati siswa yang tidak ada nomor telepon
-            }
-
-            // Hitung total tunggakan untuk anak ini
-            $bills = Bill::where('student_id', $student->id)
-                         ->where('status', '!=', 'Lunas')
-                         ->get();
-
-            if ($bills->isEmpty()) {
-                continue; // Anak tidak punya tunggakan
             }
 
             $totalTunggakan = 0;
             $rincian = "";
-            foreach ($bills as $bill) {
+            $earliestDueDate = null;
+            $latestDueDate = null;
+
+            foreach ($studentBills as $bill) {
+                if ($bill->status === 'paid') continue;
+
                 $sisaTagihan = $bill->total_amount - $bill->total_paid;
                 if ($sisaTagihan > 0) {
                     $totalTunggakan += $sisaTagihan;
@@ -76,29 +77,58 @@ class WaGatewayController extends Controller
                     if (count($detailMonths) > 0) {
                         $namaPos .= " (" . implode(', ', $detailMonths) . ")";
                     }
-
-                    $rincian .= "- " . $namaPos . ": Rp " . number_format($sisaTagihan, 0, ',', '.') . "\n";
+                    
+                    // Format tanggal jatuh tempo individu
+                    $itemDueDate = $bill->due_date ? \Carbon\Carbon::parse($bill->due_date)->translatedFormat('d F Y') : '-';
+                    $rincian .= "- " . $namaPos . " [Jatuh tempo: {$itemDueDate}]: Rp " . number_format($sisaTagihan, 0, ',', '.') . "\n";
+                    
+                    // Tracking rentang tanggal jatuh tempo
+                    if (!$earliestDueDate || $bill->due_date < $earliestDueDate) $earliestDueDate = $bill->due_date;
+                    if (!$latestDueDate || $bill->due_date > $latestDueDate) $latestDueDate = $bill->due_date;
                 }
             }
+            
+            if ($totalTunggakan == 0) continue;
 
             // Ambil template dari pengaturan
-            $templateType = $request->input('type') === 'personal' ? 'wa_template_personal' : 'wa_template_bulk';
+            if ($request->input('type') === 'personal') {
+                $templateType = 'wa_template_personal';
+            } elseif ($request->input('type') === 'due_reminder') {
+                $templateType = 'wa_template_due_reminder';
+            } else {
+                $templateType = 'wa_template_bulk';
+            }
+
             $templateText = \App\Models\SchoolSetting::get($templateType);
             
             if (!$templateText) {
                 // Default fallback jika kosong
                 if ($templateType === 'wa_template_personal') {
                     $templateText = "Halo, Orang Tua/Wali dari *[NAMA_SISWA]*\n\nBerdasarkan catatan kami, ananda memiliki tagihan biaya sekolah sebesar *Rp [TOTAL_TUNGGAKAN]*.\n\nBerikut rinciannya:\n[RINCIAN]\nMohon untuk segera diselesaikan. Terima kasih.";
+                } elseif ($templateType === 'wa_template_due_reminder') {
+                    $templateText = "PENGINGAT TAGIHAN\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\n\nKami mengingatkan bahwa tagihan sekolah ananda sebesar *Rp [TOTAL_TUNGGAKAN]* akan jatuh tempo pada *[JATUH_TEMPO]*.\n\nBerikut rinciannya:\n[RINCIAN]\n\nMohon kerjasamanya untuk menyelesaikan pembayaran sebelum tanggal tersebut.\nAbaikan pesan ini jika sudah melakukan pembayaran. Terima kasih.";
                 } else {
                     $templateText = "PEMBERITAHUAN MASSAL\nHalo, Wali Murid dari *[NAMA_SISWA]*\n\nKami menginformasikan adanya tagihan sekolah yang belum lunas sebesar *Rp [TOTAL_TUNGGAKAN]*.\n\nRincian:\n[RINCIAN]\nHarap segera melunasi tagihan tersebut. Abaikan pesan ini jika sudah membayar.";
                 }
             }
 
+            // Pastikan template custom dari database tetap menampilkan [RINCIAN]
+            if (strpos($templateText, '[RINCIAN]') === false) {
+                $templateText .= "\n\nBerikut rinciannya:\n[RINCIAN]";
+            }
+
+            // Dapatkan teks jatuh tempo umum (untuk placeholder JATUH_TEMPO jika masih ada)
+            if ($earliestDueDate == $latestDueDate && $earliestDueDate) {
+                $formattedDueDate = \Carbon\Carbon::parse($earliestDueDate)->translatedFormat('d F Y');
+            } else {
+                $formattedDueDate = "berbagai tanggal (lihat rincian)";
+            }
+
             // Replace Placeholder
             $formattedTunggakan = number_format($totalTunggakan, 0, ',', '.');
             $text = str_replace(
-                ['[NAMA_SISWA]', '[TOTAL_TUNGGAKAN]', '[RINCIAN]'],
-                [$student->name, $formattedTunggakan, $rincian],
+                ['[NAMA_SISWA]', '[TOTAL_TUNGGAKAN]', '[RINCIAN]', '[JATUH_TEMPO]'],
+                [$student->name, $formattedTunggakan, $rincian, $formattedDueDate],
                 $templateText
             );
 
@@ -113,8 +143,11 @@ class WaGatewayController extends Controller
         }
 
         if (count($messages) === 0) {
+            \Illuminate\Support\Facades\Log::warning('sendBulk: No messages generated.', ['student_ids' => $request->student_ids, 'type' => $request->input('type')]);
             return back()->with('error', 'Tidak ada pesan yang bisa dikirim. Pastikan siswa yang dipilih memiliki tagihan dan nomor telepon (WhatsApp).');
         }
+
+        \Illuminate\Support\Facades\Log::info('sendBulk: Attempting to send messages', ['type' => $request->input('type'), 'count' => count($messages), 'sample' => $messages[0] ?? null]);
 
         try {
             $delayMin = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3));
@@ -133,6 +166,19 @@ class WaGatewayController extends Controller
             }
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal terhubung ke WhatsApp Gateway Lokal. Pastikan server Node.js sedang berjalan.');
+        }
+    }
+
+    public function sendDueReminders()
+    {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('spp:send-due-reminders');
+            $output = \Illuminate\Support\Facades\Artisan::output();
+            
+            // Simpan log atau sekadar tampilkan output artisan di session
+            return back()->with('success', 'Perintah pengingat jatuh tempo berhasil dijalankan: ' . $output);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menjalankan perintah pengingat: ' . $e->getMessage());
         }
     }
 }

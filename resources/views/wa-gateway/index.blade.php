@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="card-footer bg-white border-top-0 text-center pb-4 pt-0">
-                <button onclick="checkStatus()" class="btn btn-light border w-100 fw-semibold text-secondary" style="border-radius: 10px; padding: 10px;">
+                <button onclick="checkStatus()" class="btn btn-light border w-100 fw-semibold text-secondary mb-2" style="border-radius: 10px; padding: 10px;">
                     <i class="bi bi-arrow-clockwise me-1"></i> Refresh Status
                 </button>
             </div>

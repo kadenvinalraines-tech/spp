@@ -25,7 +25,7 @@
                 <tbody>
                     @forelse($expenses as $expense)
                         <tr>
-                            <td>{{ $expense->date->format('d M Y') }}</td>
+                            <td>{{ $expense->date->translatedFormat('d F Y') }}</td>
                             <td>{{ Str::limit($expense->description, 40) }}</td>
                             <td><span class="badge bg-secondary">{{ $expense->category->name ?? '-' }}</span></td>
                             <td>{{ $expense->user->name ?? '-' }}</td>

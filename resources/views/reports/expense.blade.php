@@ -29,7 +29,7 @@
 
 <div class="card shadow-sm">
     <div class="card-header bg-white">
-        <h5 class="mb-0">Daftar Pengeluaran Disetujui ({{ \Carbon\Carbon::parse($startDate)->format('d M Y') }} - {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }})</h5>
+        <h5 class="mb-0">Daftar Pengeluaran Disetujui ({{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }})</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -47,7 +47,7 @@
                 <tbody>
                     @forelse($expenses as $e)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($e->date)->format('d M Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($e->date)->translatedFormat('d F Y') }}</td>
                             <td>{{ $e->category->name ?? '-' }}</td>
                             <td>{{ $e->description }}</td>
                             <td>{{ $e->user->name ?? '-' }}</td>

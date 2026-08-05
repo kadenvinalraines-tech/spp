@@ -29,7 +29,7 @@
 
 <div class="card shadow-sm">
     <div class="card-header bg-white">
-        <h5 class="mb-0">Hasil Laporan Kas ({{ \Carbon\Carbon::parse($startDate)->format('d M Y') }} - {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }})</h5>
+        <h5 class="mb-0">Hasil Laporan Kas ({{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }})</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -45,7 +45,7 @@
                 <tbody>
                     @forelse($transactions as $t)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($t['date'])->format('d M Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($t['date'])->translatedFormat('d F Y') }}</td>
                             <td>
                                 <span class="badge {{ $t['type'] == 'Pemasukan' ? 'bg-success' : 'bg-warning text-dark' }}">{{ $t['type'] }}</span><br>
                                 {{ $t['description'] }}

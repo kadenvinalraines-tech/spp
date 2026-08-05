@@ -26,6 +26,9 @@
                     <button class="nav-link text-start py-3 px-4 fw-semibold text-secondary" id="v-pills-backup-tab" data-bs-toggle="pill" data-bs-target="#v-pills-backup" type="button" role="tab" style="border-radius: 0; position: relative;">
                         <i class="bi bi-hdd-network me-2"></i> Backup Database
                     </button>
+                    <button class="nav-link text-start py-3 px-4 fw-semibold text-secondary" id="v-pills-timesync-tab" data-bs-toggle="pill" data-bs-target="#v-pills-timesync" type="button" role="tab" style="border-radius: 0; position: relative;">
+                        <i class="bi bi-clock-history me-2"></i> Sinkronisasi Waktu
+                    </button>
                     <button class="nav-link text-start py-3 px-4 fw-semibold text-danger" type="button" data-bs-toggle="modal" data-bs-target="#resetModal" style="border-radius: 0;">
                         <i class="bi bi-exclamation-triangle me-2"></i> Reset Database
                     </button>
@@ -260,6 +263,61 @@
                                 <label class="form-label fw-bold">Template Kuitansi Pembayaran (Otomatis)</label>
                                 <textarea name="wa_template_receipt" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [NOMINAL_BAYAR], [RINCIAN_BAYAR], [SISA_TAGIHAN]">{{ $settings['wa_template_receipt'] ?? "TERIMA KASIH\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\nKami telah menerima pembayaran sebesar *Rp [NOMINAL_BAYAR]*.\n\nRincian Pembayaran:\n[RINCIAN_BAYAR]\n\nSisa Tunggakan Saat Ini: *Rp [SISA_TAGIHAN]*\nTerima kasih atas kerja samanya." }}</textarea>
                                 <div class="form-text">Pesan ini akan <b>otomatis terkirim</b> setiap kali petugas memproses pembayaran. Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[NOMINAL_BAYAR]</code>, <code>[RINCIAN_BAYAR]</code>, <code>[SISA_TAGIHAN]</code>.</div>
+                            </div>
+                            
+                            <hr class="my-4 border-light">
+                            <h6 class="fw-bold mb-3">Pengaturan Pengingat Jatuh Tempo</h6>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Hari Pengingat (Sebelum/Sesudah Jatuh Tempo)</label>
+                                <div class="input-group w-50">
+                                    <input type="number" name="wa_due_reminder_days" class="form-control" value="{{ $settings['wa_due_reminder_days'] ?? 0 }}">
+                                    <span class="input-group-text">hari</span>
+                                </div>
+                                <div class="form-text">Isi <b>0</b> untuk mengingatkan tepat pada Hari H. Isi <b>-3</b> untuk H-3. Isi <b>3</b> untuk 3 hari setelah jatuh tempo lewat (H+3).</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Template Pengingat Jatuh Tempo</label>
+                                <textarea name="wa_template_due_reminder" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [TOTAL_TUNGGAKAN], [JATUH_TEMPO]">{{ $settings['wa_template_due_reminder'] ?? "PENGINGAT TAGIHAN\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\n\nKami mengingatkan bahwa tagihan sekolah ananda sebesar *Rp [TOTAL_TUNGGAKAN]* akan jatuh tempo pada *[JATUH_TEMPO]*.\n\nMohon kerjasamanya untuk menyelesaikan pembayaran sebelum tanggal tersebut.\nAbaikan pesan ini jika sudah melakukan pembayaran. Terima kasih." }}</textarea>
+                                <div class="form-text">Pesan ini dikirim saat perintah pengingat dijalankan (otomatis via Cron Job atau manual). Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[TOTAL_TUNGGAKAN]</code>, <code>[JATUH_TEMPO]</code>, <code>[RINCIAN]</code>.</div>
+                            </div>
+                        </div>
+
+                        <!-- TAB SINKRONISASI WAKTU -->
+                        <div class="tab-pane fade" id="v-pills-timesync" role="tabpanel">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i> Sinkronisasi Waktu (NTP)</h5>
+                                <div>
+                                    <form action="{{ route('settings.sync-time') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Sistem akan mencoba menyinkronkan waktu dengan NTP Server. Pastikan web server dijalankan sebagai Administrator. Lanjutkan?')">
+                                            <i class="bi bi-arrow-clockwise me-1"></i> Sinkronisasi Sekarang
+                                        </button>
+                                    </form>
+                                    <button type="submit" form="settings-form" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-save me-1"></i> Simpan Pengaturan
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-info border-0 shadow-sm">
+                                <i class="bi bi-info-circle-fill me-2"></i> Pengaturan ini berfungsi untuk mencocokkan jam pada sistem operasi Server/Komputer dengan jam internet (NTP). Hal ini berguna untuk mencegah masalah pada koneksi WhatsApp Gateway (Node.js) akibat jam yang tidak akurat. <strong>Penting: Fitur ini wajib membutuhkan hak akses Administrator pada OS Windows.</strong>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">NTP Server</label>
+                                    <input type="text" name="ntp_server" class="form-control" value="{{ $settings['ntp_server'] ?? 'time.windows.com' }}" placeholder="Contoh: time.windows.com atau pool.ntp.org">
+                                    <div class="form-text">Server internet referensi waktu.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Otomatis Sinkronisasi Harian</label>
+                                    <select name="auto_sync_time" class="form-select">
+                                        <option value="0" {{ isset($settings['auto_sync_time']) && $settings['auto_sync_time'] == '0' ? 'selected' : '' }}>Nonaktif</option>
+                                        <option value="1" {{ isset($settings['auto_sync_time']) && $settings['auto_sync_time'] == '1' ? 'selected' : '' }}>Aktif (Jalankan via Cron Job)</option>
+                                    </select>
+                                    <div class="form-text">Jika aktif, sistem akan menyinkronkan waktu setiap hari pukul 00:00 (membutuhkan Cron Job/Scheduler).</div>
+                                </div>
                             </div>
                         </div>
 

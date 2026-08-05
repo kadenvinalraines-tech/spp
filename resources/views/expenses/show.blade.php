@@ -13,7 +13,7 @@
                 <table class="table table-borderless">
                     <tr>
                         <td width="30%" class="text-muted">Tanggal</td>
-                        <td>: <strong>{{ $expense->date->format('d F Y') }}</strong></td>
+                        <td>: <strong>{{ $expense->date->translatedFormat('d F Y') }}</strong></td>
                     </tr>
                     <tr>
                         <td class="text-muted">Kategori</td>

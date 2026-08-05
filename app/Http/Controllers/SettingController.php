@@ -111,4 +111,33 @@ class SettingController extends Controller
             return back()->with('error', 'Terjadi kesalahan sistem saat menghapus data: ' . $e->getMessage());
         }
     }
+
+    public function syncTime(Request $request)
+    {
+        $ntpServer = SchoolSetting::get('ntp_server', 'time.windows.com');
+
+        try {
+            // Coba untuk mengatur peer dan sync
+            $cmdConfig = 'w32tm /config /manualpeerlist:"' . $ntpServer . '" /syncfromflags:manual /reliable:yes /update';
+            exec($cmdConfig . ' 2>&1', $outputConfig, $returnConfig);
+
+            $cmdResync = 'w32tm /resync';
+            exec($cmdResync . ' 2>&1', $outputResync, $returnResync);
+
+            $fullOutput = implode("\n", array_merge($outputConfig, $outputResync));
+
+            if (strpos(strtolower($fullOutput), 'access is denied') !== false || strpos(strtolower($fullOutput), 'akses ditolak') !== false) {
+                return back()->with('error', 'Akses ditolak (Access is Denied). Harap pastikan Web Server (XAMPP/Terminal/Laragon) dijalankan sebagai Administrator.');
+            }
+
+            if ($returnResync === 0) {
+                return back()->with('success', 'Waktu berhasil disinkronkan dengan NTP Server (' . $ntpServer . ').');
+            } else {
+                return back()->with('error', 'Gagal mensinkronkan waktu. Pastikan service "Windows Time" berjalan. Output: ' . $fullOutput);
+            }
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
+        }
+    }
 }

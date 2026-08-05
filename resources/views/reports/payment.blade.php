@@ -29,7 +29,7 @@
 
 <div class="card shadow-sm">
     <div class="card-header bg-white">
-        <h5 class="mb-0">Daftar Pemasukan ({{ \Carbon\Carbon::parse($startDate)->format('d M Y') }} - {{ \Carbon\Carbon::parse($endDate)->format('d M Y') }})</h5>
+        <h5 class="mb-0">Daftar Pemasukan ({{ \Carbon\Carbon::parse($startDate)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($endDate)->translatedFormat('d F Y') }})</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -48,7 +48,7 @@
                     @forelse($payments as $p)
                         <tr>
                             <td>{{ $p->transaction_number }}</td>
-                            <td>{{ \Carbon\Carbon::parse($p->date)->format('d M Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($p->date)->translatedFormat('d F Y') }}</td>
                             <td>{{ $p->student->name ?? '-' }} <br><small class="text-muted">{{ $p->student->nis ?? '-' }}</small></td>
                             <td>{{ $p->user->name ?? '-' }}</td>
                             <td>{{ $p->payment_method }}</td>

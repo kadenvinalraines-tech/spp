@@ -174,7 +174,7 @@
                                         <tbody>
                                             @foreach($paymentHistory as $pay)
                                             <tr>
-                                                <td>{{ $pay->date->format('d M Y') }}</td>
+                                                <td>{{ $pay->date->translatedFormat('d F Y') }}</td>
                                                 <td>{{ $pay->transaction_number }}</td>
                                                 <td>Rp {{ number_format($pay->total_amount, 0, ',', '.') }}</td>
                                                 <td>{{ $pay->payment_method }}</td>

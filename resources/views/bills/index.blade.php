@@ -31,10 +31,12 @@
 
         <form action="{{ route('wa-gateway.send-bulk') }}" method="POST">
             @csrf
-            <input type="hidden" name="type" value="bulk">
-            <div class="d-flex justify-content-between mb-3">
-                <button type="submit" class="btn btn-success" onclick="return confirm('Kirim pesan tagihan otomatis ke siswa yang dicentang?');">
+            <div class="mb-3 d-flex gap-2 align-items-center">
+                <button type="submit" name="type" value="bulk" class="btn btn-success" onclick="return confirm('Kirim pemberitahuan tagihan massal ke siswa yang dicentang?');">
                     <i class="bi bi-whatsapp"></i> Kirim Tagihan WA (Massal)
+                </button>
+                <button type="submit" name="type" value="due_reminder" class="btn btn-warning" onclick="return confirm('Kirim PENGINGAT JATUH TEMPO ke siswa yang dicentang?');">
+                    <i class="bi bi-bell-fill"></i> Kirim Pengingat Jatuh Tempo (Terpilih)
                 </button>
             </div>
         <div class="table-responsive">
@@ -58,7 +60,7 @@
                         <tr>
                             <td>
                                 @if($bill->status !== 'paid' && $bill->student->phone)
-                                    <input type="checkbox" name="student_ids[]" value="{{ $bill->student_id }}" class="checkItem">
+                                    <input type="checkbox" name="bill_ids[]" value="{{ $bill->id }}" class="checkItem">
                                 @endif
                             </td>
                             <td>{{ $bills->firstItem() + $index }}</td>
@@ -81,7 +83,14 @@
                             </td>
                             <td>{{ $bill->financePost->name ?? '-' }}</td>
                             <td>Rp {{ number_format($bill->total_amount, 0, ',', '.') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($bill->due_date)->format('d M Y') }}</td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($bill->due_date)->translatedFormat('d F Y') }}<br>
+                                @if($bill->due_reminder_status)
+                                    <small class="{{ $bill->due_reminder_status['class'] }} d-block mt-1">
+                                        <i class="bi bi-clock-history"></i> {{ $bill->due_reminder_status['text'] }}
+                                    </small>
+                                @endif
+                            </td>
                             <td>
                                 @if($bill->status == 'paid')
                                     <span class="badge bg-success">Lunas</span>
