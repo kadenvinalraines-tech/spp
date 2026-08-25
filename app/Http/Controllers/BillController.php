@@ -232,19 +232,27 @@ class BillController extends Controller
         ]);
     }
 
-    // Endpoint untuk mengambil siswa berdasarkan kelas (via AJAX)
-    public function getStudentsByClass($class_id)
+    // Endpoint untuk mengambil siswa berdasarkan kelas (via AJAX POST)
+    public function getStudentsByClass(Request $request)
     {
+        $class_ids = $request->input('class_ids', []);
+        
+        if (empty($class_ids)) {
+            return response()->json([]);
+        }
+
         $activeYearId = \App\Models\AcademicYear::getActiveId();
         $yearIds = \App\Models\AcademicYear::getSameYearIds($activeYearId);
         
-        if ($class_id === 'all') {
+        if (in_array('all', $class_ids)) {
             $students = \App\Models\Student::with('feeExemptions')->whereHas('studentClasses', function($q) use ($yearIds) {
                 $q->whereIn('academic_year_id', $yearIds);
             })->where('status', 'active')->orderBy('name')->get();
         } else {
-            $schoolClass = SchoolClass::findOrFail($class_id);
-            $students = $schoolClass->students()->with('feeExemptions')->wherePivotIn('academic_year_id', $yearIds)->where('status', 'active')->orderBy('name')->get();
+            $students = \App\Models\Student::with('feeExemptions')->whereHas('studentClasses', function($q) use ($yearIds, $class_ids) {
+                $q->whereIn('academic_year_id', $yearIds)
+                  ->whereIn('class_id', $class_ids);
+            })->where('status', 'active')->orderBy('name')->get();
         }
 
         return response()->json($students);

@@ -29,17 +29,24 @@
                     @error('academic_year_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-md-6">
-                    <label for="class_id" class="form-label">Kelas <span class="text-danger">*</span></label>
-                    <select class="form-select @error('class_id') is-invalid @enderror" id="class_id" name="class_id" required onchange="fetchStudents(this.value)">
-                        <option value="">-- Pilih Kelas --</option>
-                        <option value="all" {{ old('class_id') == 'all' ? 'selected' : '' }}>-- Semua Kelas --</option>
-                        @foreach($classes as $class)
-                            <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
-                                {{ $class->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('class_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <label class="form-label">Kelas <span class="text-danger">*</span></label>
+                    <div class="card shadow-sm border-0 bg-light" style="max-height: 200px; overflow-y: auto;">
+                        <div class="card-body py-2">
+                            <div class="form-check mb-2 border-bottom pb-2">
+                                <input class="form-check-input" type="checkbox" id="check_all_classes" value="all" onchange="toggleAllClasses(this); fetchStudents()">
+                                <label class="form-check-label fw-bold text-primary" for="check_all_classes">-- Pilih Semua Kelas --</label>
+                            </div>
+                            @foreach($classes as $class)
+                                <div class="form-check">
+                                    <input class="form-check-input class-checkbox" type="checkbox" name="class_id[]" value="{{ $class->id }}" id="class_{{ $class->id }}" onchange="fetchStudents()" {{ is_array(old('class_id')) && in_array($class->id, old('class_id')) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="class_{{ $class->id }}">
+                                        {{ $class->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @error('class_id')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                 </div>
             </div>
 
@@ -112,6 +119,13 @@
             .catch(error => console.error('Error fetching amount:', error));
     }
 
+    function toggleAllClasses(source) {
+        const checkboxes = document.querySelectorAll('.class-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = source.checked;
+        });
+    }
+
     // Jika terjadi validasi error tapi pos keuangan sudah terpilih, coba set nilainya
     document.addEventListener("DOMContentLoaded", function() {
         const postId = document.getElementById('finance_post_id').value;
@@ -121,18 +135,25 @@
             fetchDefaultAmount(postId);
         }
 
-        // Fetch students if class is already selected (e.g. old input)
-        const classId = document.getElementById('class_id').value;
-        if (classId) {
-            fetchStudents(classId);
-        }
+        // Fetch students if classes are already selected (e.g. old input)
+        fetchStudents();
     });
 
-    function fetchStudents(classId) {
+    function fetchStudents() {
         const container = document.getElementById('student_checkboxes_container');
         const card = document.getElementById('student_selection_card');
         
-        if (!classId) {
+        let selectedClasses = [];
+        document.querySelectorAll('.class-checkbox:checked').forEach(cb => {
+            selectedClasses.push(cb.value);
+        });
+
+        // Also check if "Pilih Semua Kelas" is checked
+        if (document.getElementById('check_all_classes').checked) {
+            selectedClasses = ['all'];
+        }
+
+        if (selectedClasses.length === 0) {
             card.classList.add('d-none');
             container.innerHTML = '';
             return;
@@ -141,7 +162,14 @@
         container.innerHTML = '<div class="col-12 text-center small text-muted">Memuat data siswa...</div>';
         card.classList.remove('d-none');
 
-        fetch(`/api/classes/${classId}/students`)
+        fetch(`/api/classes/students`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : document.querySelector('input[name="_token"]').value
+            },
+            body: JSON.stringify({ class_ids: selectedClasses })
+        })
             .then(response => response.json())
             .then(students => {
                 container.innerHTML = '';

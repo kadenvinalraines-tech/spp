@@ -15,7 +15,7 @@ class GenerateBillRequest extends FormRequest
     {
         return [
             'academic_year_id' => ['required', 'exists:academic_years,id'],
-            'class_id' => ['required'],
+            'class_id' => ['required', 'array'],
             'student_ids' => ['required', 'array'],
             'student_ids.*' => ['exists:students,id'],
             'finance_post_id' => ['required', 'exists:finance_posts,id'],

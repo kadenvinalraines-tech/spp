@@ -140,11 +140,16 @@
                                             <tr>
                                                 <td colspan="5">
                                                     <div class="d-flex justify-content-between align-items-center">
-                                                        <button class="btn btn-primary" id="btnPaySelected" disabled data-bs-toggle="modal" data-bs-target="#payModal">
-                                                            Bayar Terpilih (0 item)
-                                                        </button>
+                                                        <div>
+                                                            <button class="btn btn-primary" id="btnPaySelected" disabled data-bs-toggle="modal" data-bs-target="#payModal">
+                                                                Bayar Terpilih (0 item)
+                                                            </button>
+                                                            <button class="btn btn-success ms-2" id="btnPayAll" type="button">
+                                                                <i class="bi bi-check2-all"></i> Bayar Semua Tagihan
+                                                            </button>
+                                                        </div>
                                                         <div class="text-end">
-                                                            <span class="text-muted">Total Seluruh Tunggakan:</span>
+                                                            <span class="text-muted">Total Seluruh Tagihan Aktif:</span>
                                                             <strong class="text-danger fs-6 ms-2">Rp {{ number_format($grandTotalSisa, 0, ',', '.') }}</strong>
                                                         </div>
                                                     </div>
@@ -301,6 +306,20 @@ document.addEventListener("DOMContentLoaded", function() {
             updatePayButton();
         });
     });
+
+    const btnPayAll = document.getElementById('btnPayAll');
+    if (btnPayAll) {
+        btnPayAll.addEventListener('click', function() {
+            if (checkAll) {
+                checkAll.checked = true;
+                billChecks.forEach(cb => {
+                    cb.checked = true;
+                });
+                updatePayButton();
+                btnPaySelected.click(); // Trigger modal open
+            }
+        });
+    }
 
     const payModal = document.getElementById('payModal');
     if (payModal) {

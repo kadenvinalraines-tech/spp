@@ -30,6 +30,49 @@ class WaGatewayController extends Controller
         }
     }
 
+    public function logs()
+    {
+        try {
+            $response = Http::timeout(5)->get($this->getGatewayUrl() . '/logs');
+            return response()->json($response->json());
+        } catch (\Exception $e) {
+            return response()->json([]);
+        }
+    }
+
+    public function resend(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required',
+            'message' => 'required',
+            'name' => 'nullable'
+        ]);
+
+        try {
+            $messages = [
+                [
+                    'phone' => $request->input('phone'),
+                    'name' => $request->input('name', 'Tidak diketahui'),
+                    'message' => $request->input('message')
+                ]
+            ];
+
+            $response = Http::timeout(10)->post($this->getGatewayUrl() . '/send-bulk', [
+                'messages'  => $messages,
+                'delayMin'  => 0,
+                'delayMax'  => 1000,
+            ]);
+
+            if ($response->successful() && $response->json('success')) {
+                return response()->json(['success' => true, 'message' => 'Pesan dimasukkan kembali ke antrean.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Gagal mengulang pengiriman.']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal terhubung ke WA Gateway.']);
+        }
+    }
+
     public function sendBulk(Request $request)
     {
         $request->validate([
@@ -60,19 +103,24 @@ class WaGatewayController extends Controller
             foreach ($studentBills as $bill) {
                 if ($bill->status === 'paid') continue;
 
-                $sisaTagihan = $bill->total_amount - $bill->total_paid;
-                if ($sisaTagihan > 0) {
-                    $totalTunggakan += $sisaTagihan;
-                    
-                    // Cek apakah ada detail bulan untuk rincian yang lebih jelas
-                    $detailMonths = [];
-                    foreach ($bill->details as $detail) {
-                        $sisaDetail = $detail->amount - $detail->paid_amount;
-                        if ($sisaDetail > 0 && $detail->month) {
+                $sisaTagihan = 0;
+                $detailMonths = [];
+                
+                foreach ($bill->details as $detail) {
+                    if (!$detail->isDue()) continue;
+
+                    $sisaDetail = $detail->amount - $detail->paid_amount;
+                    if ($sisaDetail > 0) {
+                        $sisaTagihan += $sisaDetail;
+                        if ($detail->month) {
                             $detailMonths[] = $detail->month;
                         }
                     }
+                }
 
+                if ($sisaTagihan > 0) {
+                    $totalTunggakan += $sisaTagihan;
+                    
                     $namaPos = $bill->financePost->name ?? 'Tagihan';
                     if (count($detailMonths) > 0) {
                         $namaPos .= " (" . implode(', ', $detailMonths) . ")";
@@ -138,6 +186,7 @@ class WaGatewayController extends Controller
 
             $messages[] = [
                 'phone' => $student->phone,
+                'name' => $student->name,
                 'message' => $text
             ];
         }

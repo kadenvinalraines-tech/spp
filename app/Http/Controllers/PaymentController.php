@@ -51,19 +51,6 @@ class PaymentController extends Controller
 
                 $unpaidBills = $query->get();
 
-                // Filter details by isDue() and remove bills that have no due details
-                foreach ($unpaidBills as $key => $bill) {
-                    $dueDetails = $bill->details->filter(function($detail) {
-                        return $detail->isDue();
-                    });
-                    
-                    if ($dueDetails->isEmpty()) {
-                        $unpaidBills->forget($key);
-                    } else {
-                        $bill->setRelation('details', $dueDetails);
-                    }
-                }
-
                 // Get Payment History
                 $paymentHistory = Payment::with(['user', 'details.billDetail.bill.financePost'])
                 ->where('student_id', $student->id)

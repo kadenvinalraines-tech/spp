@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('bills/{bill}/due-date', [\App\Http\Controllers\BillController::class, 'updateDueDate'])->name('bills.update-due-date');
         Route::delete('bills/{bill}', [\App\Http\Controllers\BillController::class, 'destroy'])->name('bills.destroy');
         Route::get('api/finance-posts/{financePost}/amount', [\App\Http\Controllers\BillController::class, 'getFinancePostAmount']);
-        Route::get('api/classes/{class_id}/students', [\App\Http\Controllers\BillController::class, 'getStudentsByClass']);
+        Route::post('api/classes/students', [\App\Http\Controllers\BillController::class, 'getStudentsByClass']);
     });
 
     // Payments Route
@@ -111,6 +111,8 @@ Route::middleware('auth')->group(function () {
     // WA Gateway Route (Accessible by all authenticated roles)
     Route::get('wa-gateway', [\App\Http\Controllers\WaGatewayController::class, 'index'])->name('wa-gateway.index');
     Route::get('wa-gateway/status', [\App\Http\Controllers\WaGatewayController::class, 'status'])->name('wa-gateway.status');
+    Route::get('wa-gateway/logs', [\App\Http\Controllers\WaGatewayController::class, 'logs'])->name('wa-gateway.logs');
+    Route::post('wa-gateway/resend', [\App\Http\Controllers\WaGatewayController::class, 'resend'])->name('wa-gateway.resend');
     Route::post('wa-gateway/send-bulk', [\App\Http\Controllers\WaGatewayController::class, 'sendBulk'])->name('wa-gateway.send-bulk');
     Route::post('wa-gateway/send-due-reminders', [\App\Http\Controllers\WaGatewayController::class, 'sendDueReminders'])->name('wa-gateway.send-due-reminders');
 

@@ -66,6 +66,36 @@
         </div>
     </div>
 </div>
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10 col-lg-8">
+        <div class="card border-0 mb-4" style="border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+            <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i>Riwayat Pengiriman Terbaru</h6>
+                <button onclick="fetchLogs()" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-clockwise"></i> Segarkan</button>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover mb-0 text-sm align-middle">
+                        <thead class="table-light sticky-top">
+                            <tr>
+                                <th class="ps-4">Tujuan</th>
+                                <th>Status</th>
+                                <th>Waktu</th>
+                                <th>Keterangan</th>
+                                <th class="pe-4 text-end">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-tbody">
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">Belum ada riwayat pengiriman terbaru.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @push('scripts')
 <script>
@@ -125,8 +155,83 @@
             });
     }
 
+    function fetchLogs() {
+        fetch('{{ route('wa-gateway.logs') }}')
+            .then(response => response.json())
+            .then(logs => {
+                const tbody = document.getElementById('logs-tbody');
+                if (!logs || logs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Belum ada riwayat pengiriman terbaru.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                logs.forEach(log => {
+                    let statusHtml = '';
+                    if (log.status === 'success') {
+                        statusHtml = '<span class="badge bg-success rounded-pill"><i class="bi bi-check-circle me-1"></i> Berhasil</span>';
+                    } else if (log.status === 'error') {
+                        statusHtml = '<span class="badge bg-danger rounded-pill"><i class="bi bi-x-circle me-1"></i> Gagal</span>';
+                    } else {
+                        statusHtml = '<span class="badge bg-warning text-dark rounded-pill"><i class="bi bi-hourglass-split me-1"></i> Antre...</span>';
+                    }
+                    
+                    const time = new Date(log.time).toLocaleTimeString('id-ID', { hour: '2-digit', minute:'2-digit', second:'2-digit' });
+                    
+                    let nameHtml = `<div class="fw-bold text-dark">${log.name || 'Siswa'}</div><div class="small text-muted">${log.phone}</div>`;
+                    let actionHtml = '';
+                    if (log.status === 'error' && log.message_content) {
+                        const safeName = (log.name || '').replace(/'/g, "\\'");
+                        const b64Msg = btoa(encodeURIComponent(log.message_content));
+                        actionHtml = `<button class="btn btn-sm btn-outline-danger" onclick="resendMessage('${log.phone}', '${safeName}', '${b64Msg}')" title="Kirim Ulang"><i class="bi bi-arrow-repeat"></i> Ulang</button>`;
+                    }
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="ps-4">${nameHtml}</td>
+                            <td>${statusHtml}</td>
+                            <td class="text-muted small">${time}</td>
+                            <td class="text-muted small text-truncate" style="max-width: 150px;">${log.error || 'Terkirim'}</td>
+                            <td class="pe-4 text-end">${actionHtml}</td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(error => console.error('Error fetching logs:', error));
+    }
+
+    function resendMessage(phone, name, base64Msg) {
+        if (!confirm('Kirim ulang tagihan ke ' + (name || phone) + '?')) return;
+        
+        const message = decodeURIComponent(atob(base64Msg));
+        
+        fetch('{{ route('wa-gateway.resend') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ phone, name, message })
+        })
+        .then(r => r.json())
+        .then(res => {
+            if (res.success) {
+                alert('Pesan berhasil dimasukkan kembali ke antrean!');
+                fetchLogs();
+            } else {
+                alert('Gagal: ' + res.message);
+            }
+        })
+        .catch(e => alert('Terjadi kesalahan koneksi.'));
+    }
+
     // Jalankan pertama kali saat halaman dimuat
-    document.addEventListener("DOMContentLoaded", () => checkStatus(false));
+    document.addEventListener("DOMContentLoaded", () => {
+        checkStatus(false);
+        fetchLogs();
+        // Polling setiap 5 detik
+        setInterval(fetchLogs, 5000);
+    });
 </script>
 @endpush
 @endsection
