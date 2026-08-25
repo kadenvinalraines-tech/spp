@@ -109,7 +109,7 @@
             return;
         }
         
-        fetch(`/api/finance-posts/${postId}/amount`)
+        fetch(`{{ url('api/finance-posts') }}/${postId}/amount`)
             .then(response => response.json())
             .then(data => {
                 if(data && data.default_amount !== undefined) {
@@ -162,7 +162,7 @@
         container.innerHTML = '<div class="col-12 text-center small text-muted">Memuat data siswa...</div>';
         card.classList.remove('d-none');
 
-        fetch(`/api/classes/students`, {
+        fetch(`{{ url('api/classes/students') }}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

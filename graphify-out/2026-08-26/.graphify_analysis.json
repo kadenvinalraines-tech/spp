@@ -1424,41 +1424,8 @@
       "why": "bridges separate communities"
     }
   ],
-  "questions": [
-    {
-      "type": "bridge_node",
-      "question": "Why does `User` connect `User` to `Controller`, `Illuminate\\Foundation\\Http\\FormRequest`, `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `Role`?",
-      "why": "High betweenness centrality (0.090) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `Student` connect `Student` to `Illuminate\\Database\\Eloquent\\Model`, `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `SchoolClass`, `SettingController.php`?",
-      "why": "High betweenness centrality (0.030) - this node is a cross-community bridge."
-    },
-    {
-      "type": "bridge_node",
-      "question": "Why does `Controller` connect `Controller` to `User`, `Illuminate\\Foundation\\Http\\FormRequest`, `Student`, `Illuminate\\Database\\Eloquent\\Relations\\BelongsTo`, `SchoolClass`, `Role`, `Illuminate\\Http\\Request`, `ExpenseCategory`?",
-      "why": "High betweenness centrality (0.028) - this node is a cross-community bridge."
-    },
-    {
-      "type": "isolated_nodes",
-      "question": "What connects `$schema`, `name`, `type` to the rest of the system?",
-      "why": "75 weakly-connected nodes found - possible documentation gaps or missing edges."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `User` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.05328218243819267 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `Controller` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.07474747474747474 - nodes in this community are weakly interconnected."
-    },
-    {
-      "type": "low_cohesion",
-      "question": "Should `Illuminate\\Foundation\\Http\\FormRequest` be split into smaller, more focused modules?",
-      "why": "Cohesion score 0.050505050505050504 - nodes in this community are weakly interconnected."
-    }
-  ]
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
 }
