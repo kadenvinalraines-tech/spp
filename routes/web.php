@@ -65,10 +65,17 @@ Route::middleware('auth')->group(function () {
     
     // Bills Route
     Route::middleware('permission:manage_bills')->group(function () {
+        Route::get('bills/print-report', [\App\Http\Controllers\BillController::class, 'printReport'])->name('bills.print-report');
         Route::get('bills/generate', [\App\Http\Controllers\BillController::class, 'create'])->name('bills.generate');
         Route::post('bills/generate', [\App\Http\Controllers\BillController::class, 'store'])->name('bills.store');
         Route::get('bills', [\App\Http\Controllers\BillController::class, 'index'])->name('bills.index');
+        Route::get('bills/due-dates', [\App\Http\Controllers\BillController::class, 'manageDueDates'])->name('bills.due-dates');
+        Route::patch('bills/bulk-update-due-date', [\App\Http\Controllers\BillController::class, 'bulkUpdateDueDate'])->name('bills.bulk-update-due-date');
+        Route::get('bills/student/{student}', [\App\Http\Controllers\BillController::class, 'showStudentBills'])->name('bills.student.show');
+        Route::patch('bills/{bill}/due-date', [\App\Http\Controllers\BillController::class, 'updateDueDate'])->name('bills.update-due-date');
+        Route::delete('bills/{bill}', [\App\Http\Controllers\BillController::class, 'destroy'])->name('bills.destroy');
         Route::get('api/finance-posts/{financePost}/amount', [\App\Http\Controllers\BillController::class, 'getFinancePostAmount']);
+        Route::get('api/classes/{class_id}/students', [\App\Http\Controllers\BillController::class, 'getStudentsByClass']);
     });
 
     // Payments Route

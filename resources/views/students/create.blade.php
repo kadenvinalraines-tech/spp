@@ -82,6 +82,27 @@
                 @error('photo')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
 
+            <div class="card bg-light mb-4 border-0">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold">Pembebasan Biaya (Pengecualian)</h6>
+                    <p class="text-muted small mb-3">Centang jenis biaya di bawah ini jika siswa dibebaskan (digratiskan) dari tagihan tersebut.</p>
+                    <div class="row">
+                        @foreach($financePosts as $post)
+                            <div class="col-md-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="fee_exemptions[]" value="{{ $post->id }}" id="fee_{{ $post->id }}" 
+                                        {{ (is_array(old('fee_exemptions')) && in_array($post->id, old('fee_exemptions'))) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="fee_{{ $post->id }}">
+                                        {{ $post->name }}
+                                    </label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('fee_exemptions')<div class="text-danger small mt-2">{{ $message }}</div>@enderror
+                </div>
+            </div>
+
             <div class="d-flex justify-content-end">
                 <a href="{{ route('students.index') }}" class="btn btn-secondary me-2">Batal</a>
                 <button type="submit" class="btn btn-primary">Simpan Siswa</button>

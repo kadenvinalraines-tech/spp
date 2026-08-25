@@ -36,7 +36,7 @@
                     <td>{{ $ar->student->status == 'graduated' ? 'Alumni (' . $ar->student->latest_academic_year_name . ')' : ($ar->student->schoolClass->name ?? '-') }}</td>
                     <td>{{ $ar->financePost->name ?? '-' }} ({{ $ar->academicYear->name ?? '-' }})</td>
                     <td class="text-end">{{ number_format($ar->total_amount, 0, ',', '.') }}</td>
-                    <td class="text-end">{{ number_format($ar->total_amount - $ar->total_paid, 0, ',', '.') }}</td>
+                    <td class="text-end">{{ number_format($ar->due_arrear_amount ?? ($ar->total_amount - $ar->total_paid), 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>

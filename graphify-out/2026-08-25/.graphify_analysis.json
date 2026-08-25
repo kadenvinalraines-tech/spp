@@ -1,0 +1,1420 @@
+{
+  "communities": {
+    "0": [
+      "app_http_controllers_usercontroller",
+      "app_http_controllers_usercontroller_usercontroller",
+      "app_http_controllers_usercontroller_usercontroller_create",
+      "app_http_controllers_usercontroller_usercontroller_destroy",
+      "app_http_controllers_usercontroller_usercontroller_edit",
+      "app_http_controllers_usercontroller_usercontroller_index",
+      "app_http_controllers_usercontroller_usercontroller_store",
+      "app_http_controllers_usercontroller_usercontroller_update",
+      "app_models_user",
+      "app_models_user_php_belongstomany",
+      "app_models_user_user",
+      "app_models_user_user_casts",
+      "app_models_user_user_haspermission",
+      "app_models_user_user_hasrole",
+      "app_models_user_user_roles",
+      "config_auth",
+      "database_factories_userfactory",
+      "database_factories_userfactory_userfactory",
+      "database_factories_userfactory_userfactory_definition",
+      "database_factories_userfactory_userfactory_unverified",
+      "illuminate_database_eloquent_factories_factory",
+      "illuminate_database_eloquent_factories_hasfactory",
+      "illuminate_foundation_auth_user",
+      "illuminate_foundation_testing_refreshdatabase",
+      "illuminate_foundation_testing_testcase",
+      "illuminate_notifications_notifiable",
+      "static",
+      "tests_feature_auth_authenticationtest",
+      "tests_feature_auth_authenticationtest_authenticationtest",
+      "tests_feature_auth_authenticationtest_authenticationtest_test_login_screen_can_be_rendered",
+      "tests_feature_auth_authenticationtest_authenticationtest_test_users_can_authenticate_using_the_login_screen",
+      "tests_feature_auth_authenticationtest_authenticationtest_test_users_can_logout",
+      "tests_feature_auth_authenticationtest_authenticationtest_test_users_can_not_authenticate_with_invalid_password",
+      "tests_feature_auth_emailverificationtest",
+      "tests_feature_auth_emailverificationtest_emailverificationtest",
+      "tests_feature_auth_emailverificationtest_emailverificationtest_test_email_can_be_verified",
+      "tests_feature_auth_emailverificationtest_emailverificationtest_test_email_is_not_verified_with_invalid_hash",
+      "tests_feature_auth_emailverificationtest_emailverificationtest_test_email_verification_screen_can_be_rendered",
+      "tests_feature_auth_passwordconfirmationtest",
+      "tests_feature_auth_passwordconfirmationtest_passwordconfirmationtest",
+      "tests_feature_auth_passwordconfirmationtest_passwordconfirmationtest_test_confirm_password_screen_can_be_rendered",
+      "tests_feature_auth_passwordconfirmationtest_passwordconfirmationtest_test_password_can_be_confirmed",
+      "tests_feature_auth_passwordconfirmationtest_passwordconfirmationtest_test_password_is_not_confirmed_with_invalid_password",
+      "tests_feature_auth_passwordresettest",
+      "tests_feature_auth_passwordresettest_passwordresettest",
+      "tests_feature_auth_passwordresettest_passwordresettest_test_password_can_be_reset_with_valid_token",
+      "tests_feature_auth_passwordresettest_passwordresettest_test_reset_password_link_can_be_requested",
+      "tests_feature_auth_passwordresettest_passwordresettest_test_reset_password_link_screen_can_be_rendered",
+      "tests_feature_auth_passwordresettest_passwordresettest_test_reset_password_screen_can_be_rendered",
+      "tests_feature_auth_passwordupdatetest",
+      "tests_feature_auth_passwordupdatetest_passwordupdatetest",
+      "tests_feature_auth_passwordupdatetest_passwordupdatetest_test_correct_password_must_be_provided_to_update_password",
+      "tests_feature_auth_passwordupdatetest_passwordupdatetest_test_password_can_be_updated",
+      "tests_feature_auth_registrationtest",
+      "tests_feature_auth_registrationtest_registrationtest",
+      "tests_feature_auth_registrationtest_registrationtest_test_new_users_can_register",
+      "tests_feature_auth_registrationtest_registrationtest_test_registration_screen_can_be_rendered",
+      "tests_feature_exampletest",
+      "tests_feature_exampletest_exampletest",
+      "tests_feature_exampletest_exampletest_test_the_application_returns_a_successful_response",
+      "tests_feature_profiletest",
+      "tests_feature_profiletest_profiletest",
+      "tests_feature_profiletest_profiletest_test_correct_password_must_be_provided_to_delete_account",
+      "tests_feature_profiletest_profiletest_test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+      "tests_feature_profiletest_profiletest_test_profile_information_can_be_updated",
+      "tests_feature_profiletest_profiletest_test_profile_page_is_displayed",
+      "tests_feature_profiletest_profiletest_test_user_can_delete_their_account",
+      "tests_testcase",
+      "tests_testcase_testcase"
+    ],
+    "1": [
+      "app_http_controllers_auth_authenticatedsessioncontroller",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_create",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_destroy",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_store",
+      "app_http_controllers_auth_confirmablepasswordcontroller",
+      "app_http_controllers_auth_confirmablepasswordcontroller_confirmablepasswordcontroller",
+      "app_http_controllers_auth_confirmablepasswordcontroller_confirmablepasswordcontroller_show",
+      "app_http_controllers_auth_confirmablepasswordcontroller_confirmablepasswordcontroller_store",
+      "app_http_controllers_auth_emailverificationnotificationcontroller",
+      "app_http_controllers_auth_emailverificationnotificationcontroller_emailverificationnotificationcontroller",
+      "app_http_controllers_auth_emailverificationnotificationcontroller_emailverificationnotificationcontroller_store",
+      "app_http_controllers_auth_emailverificationpromptcontroller",
+      "app_http_controllers_auth_emailverificationpromptcontroller_emailverificationpromptcontroller",
+      "app_http_controllers_auth_emailverificationpromptcontroller_emailverificationpromptcontroller_invoke",
+      "app_http_controllers_auth_newpasswordcontroller",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller_create",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller_store",
+      "app_http_controllers_auth_passwordcontroller",
+      "app_http_controllers_auth_passwordcontroller_passwordcontroller",
+      "app_http_controllers_auth_passwordcontroller_passwordcontroller_update",
+      "app_http_controllers_auth_passwordresetlinkcontroller",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller_create",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller_store",
+      "app_http_controllers_auth_registeredusercontroller",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller_create",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller_store",
+      "app_http_controllers_auth_verifyemailcontroller",
+      "app_http_controllers_auth_verifyemailcontroller_verifyemailcontroller",
+      "app_http_controllers_auth_verifyemailcontroller_verifyemailcontroller_invoke",
+      "app_http_controllers_controller",
+      "app_http_controllers_controller_controller",
+      "app_http_controllers_datamastercontroller",
+      "app_http_controllers_datamastercontroller_datamastercontroller",
+      "app_http_controllers_datamastercontroller_datamastercontroller_index",
+      "app_http_controllers_profilecontroller",
+      "app_http_controllers_profilecontroller_profilecontroller",
+      "app_http_controllers_profilecontroller_profilecontroller_destroy",
+      "app_http_controllers_profilecontroller_profilecontroller_edit",
+      "app_http_controllers_profilecontroller_profilecontroller_update",
+      "app_http_requests_profileupdaterequest",
+      "app_http_requests_profileupdaterequest_profileupdaterequest",
+      "app_http_requests_profileupdaterequest_profileupdaterequest_rules",
+      "app_view_components_applayout",
+      "app_view_components_applayout_applayout",
+      "app_view_components_applayout_applayout_render",
+      "app_view_components_guestlayout",
+      "app_view_components_guestlayout_guestlayout",
+      "app_view_components_guestlayout_guestlayout_render",
+      "illuminate_foundation_auth_emailverificationrequest",
+      "illuminate_http_redirectresponse",
+      "illuminate_view_component",
+      "illuminate_view_view",
+      "routes_auth",
+      "routes_web"
+    ],
+    "2": [
+      "app_http_controllers_financepostcontroller",
+      "app_http_controllers_financepostcontroller_financepostcontroller",
+      "app_http_controllers_financepostcontroller_financepostcontroller_create",
+      "app_http_controllers_financepostcontroller_financepostcontroller_destroy",
+      "app_http_controllers_financepostcontroller_financepostcontroller_edit",
+      "app_http_controllers_financepostcontroller_financepostcontroller_index",
+      "app_http_controllers_financepostcontroller_financepostcontroller_store",
+      "app_http_controllers_financepostcontroller_financepostcontroller_update",
+      "app_http_requests_auth_loginrequest",
+      "app_http_requests_auth_loginrequest_loginrequest",
+      "app_http_requests_auth_loginrequest_loginrequest_authenticate",
+      "app_http_requests_auth_loginrequest_loginrequest_authorize",
+      "app_http_requests_auth_loginrequest_loginrequest_ensureisnotratelimited",
+      "app_http_requests_auth_loginrequest_loginrequest_rules",
+      "app_http_requests_auth_loginrequest_loginrequest_throttlekey",
+      "app_http_requests_generatebillrequest",
+      "app_http_requests_generatebillrequest_generatebillrequest",
+      "app_http_requests_generatebillrequest_generatebillrequest_authorize",
+      "app_http_requests_generatebillrequest_generatebillrequest_rules",
+      "app_http_requests_storefinancepostrequest",
+      "app_http_requests_storefinancepostrequest_storefinancepostrequest",
+      "app_http_requests_storefinancepostrequest_storefinancepostrequest_authorize",
+      "app_http_requests_storefinancepostrequest_storefinancepostrequest_rules",
+      "app_http_requests_storepaymentrequest_storepaymentrequest",
+      "app_http_requests_storepaymentrequest_storepaymentrequest_authorize",
+      "app_http_requests_storepaymentrequest_storepaymentrequest_rules",
+      "app_http_requests_storeschoolclassrequest",
+      "app_http_requests_storeschoolclassrequest_storeschoolclassrequest",
+      "app_http_requests_storeschoolclassrequest_storeschoolclassrequest_authorize",
+      "app_http_requests_storeschoolclassrequest_storeschoolclassrequest_messages",
+      "app_http_requests_storeschoolclassrequest_storeschoolclassrequest_rules",
+      "app_http_requests_storestudentrequest",
+      "app_http_requests_storestudentrequest_storestudentrequest",
+      "app_http_requests_storestudentrequest_storestudentrequest_authorize",
+      "app_http_requests_storestudentrequest_storestudentrequest_rules",
+      "app_http_requests_updatefinancepostrequest",
+      "app_http_requests_updatefinancepostrequest_updatefinancepostrequest",
+      "app_http_requests_updatefinancepostrequest_updatefinancepostrequest_authorize",
+      "app_http_requests_updatefinancepostrequest_updatefinancepostrequest_rules",
+      "app_http_requests_updateschoolclassrequest",
+      "app_http_requests_updateschoolclassrequest_updateschoolclassrequest",
+      "app_http_requests_updateschoolclassrequest_updateschoolclassrequest_authorize",
+      "app_http_requests_updateschoolclassrequest_updateschoolclassrequest_messages",
+      "app_http_requests_updateschoolclassrequest_updateschoolclassrequest_rules",
+      "app_http_requests_updatestudentrequest",
+      "app_http_requests_updatestudentrequest_updatestudentrequest",
+      "app_http_requests_updatestudentrequest_updatestudentrequest_authorize",
+      "app_http_requests_updatestudentrequest_updatestudentrequest_rules",
+      "app_models_financepost_financepost",
+      "app_models_financepost_financepost_exemptedstudents",
+      "app_models_financepost_php_belongstomany",
+      "illuminate_foundation_http_formrequest"
+    ],
+    "3": [
+      "app_http_controllers_academicyearcontroller",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_create",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_destroy",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_edit",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_index",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_setactive",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_store",
+      "app_http_controllers_academicyearcontroller_academicyearcontroller_update",
+      "app_http_controllers_alumnicontroller",
+      "app_http_controllers_alumnicontroller_alumnicontroller",
+      "app_http_controllers_alumnicontroller_alumnicontroller_bulkdestroy",
+      "app_http_controllers_alumnicontroller_alumnicontroller_destroy",
+      "app_http_controllers_alumnicontroller_alumnicontroller_edit",
+      "app_http_controllers_alumnicontroller_alumnicontroller_index",
+      "app_http_controllers_alumnicontroller_alumnicontroller_sendwa",
+      "app_http_controllers_alumnicontroller_alumnicontroller_show",
+      "app_http_controllers_alumnicontroller_alumnicontroller_update",
+      "app_http_controllers_studentcontroller",
+      "app_http_controllers_studentcontroller_studentcontroller",
+      "app_http_controllers_studentcontroller_studentcontroller_bulkdestroy",
+      "app_http_controllers_studentcontroller_studentcontroller_create",
+      "app_http_controllers_studentcontroller_studentcontroller_destroy",
+      "app_http_controllers_studentcontroller_studentcontroller_edit",
+      "app_http_controllers_studentcontroller_studentcontroller_export",
+      "app_http_controllers_studentcontroller_studentcontroller_import",
+      "app_http_controllers_studentcontroller_studentcontroller_index",
+      "app_http_controllers_studentcontroller_studentcontroller_show",
+      "app_http_controllers_studentcontroller_studentcontroller_store",
+      "app_http_controllers_studentcontroller_studentcontroller_update",
+      "app_models_academicyear_academicyear",
+      "app_models_academicyear_academicyear_financeposts",
+      "app_models_academicyear_academicyear_getactiveid",
+      "app_models_academicyear_academicyear_getsameyearids",
+      "app_models_academicyear_php_hasmany",
+      "app_models_student_php_belongstomany",
+      "app_models_student_php_hasmany",
+      "app_models_student_student",
+      "app_models_student_student_bills",
+      "app_models_student_student_feeexemptions",
+      "app_models_student_student_getlatestacademicyearnameattribute",
+      "app_models_student_student_getphotourlattribute",
+      "app_models_student_student_getschoolclassattribute",
+      "app_models_student_student_studentclasses",
+      "check_student",
+      "test_promotion"
+    ],
+    "4": [
+      "composer",
+      "composer_allow_plugins_pestphp_pest_plugin",
+      "composer_allow_plugins_php_http_discovery",
+      "composer_autoload",
+      "composer_autoload_dev",
+      "composer_autoload_dev_psr_4",
+      "composer_autoload_psr_4",
+      "composer_config",
+      "composer_config_allow_plugins",
+      "composer_config_optimize_autoloader",
+      "composer_config_preferred_install",
+      "composer_config_sort_packages",
+      "composer_description",
+      "composer_extra",
+      "composer_extra_laravel",
+      "composer_keywords",
+      "composer_laravel_dont_discover",
+      "composer_license",
+      "composer_minimum_stability",
+      "composer_name",
+      "composer_prefer_stable",
+      "composer_psr_4_app",
+      "composer_psr_4_database_factories",
+      "composer_psr_4_database_seeders",
+      "composer_psr_4_tests",
+      "composer_require",
+      "composer_require_barryvdh_laravel_dompdf",
+      "composer_require_dev",
+      "composer_require_dev_fakerphp_faker",
+      "composer_require_dev_laravel_breeze",
+      "composer_require_dev_laravel_pail",
+      "composer_require_dev_laravel_pint",
+      "composer_require_dev_laravel_sail",
+      "composer_require_dev_mockery_mockery",
+      "composer_require_dev_nunomaduro_collision",
+      "composer_require_dev_phpunit_phpunit",
+      "composer_require_ifsnop_mysqldump_php",
+      "composer_require_laravel_framework",
+      "composer_require_laravel_tinker",
+      "composer_require_maatwebsite_excel",
+      "composer_require_php",
+      "composer_schema",
+      "composer_type",
+      "ref_framework",
+      "ref_laravel"
+    ],
+    "5": [
+      "app_http_controllers_academicyearsessioncontroller",
+      "app_http_controllers_academicyearsessioncontroller_academicyearsessioncontroller",
+      "app_http_controllers_academicyearsessioncontroller_academicyearsessioncontroller_setsession",
+      "app_http_controllers_backupcontroller",
+      "app_http_controllers_backupcontroller_backupcontroller",
+      "app_http_controllers_backupcontroller_backupcontroller_downloadbackup",
+      "app_http_controllers_backupcontroller_backupcontroller_manualbackup",
+      "app_http_controllers_backupcontroller_backupcontroller_restorebackup",
+      "app_http_controllers_dashboardcontroller_dashboardcontroller",
+      "app_http_controllers_dashboardcontroller_dashboardcontroller_index",
+      "app_http_controllers_paymentcontroller_paymentcontroller_index",
+      "app_http_controllers_reportcontroller_reportcontroller",
+      "app_http_controllers_reportcontroller_reportcontroller_arrear",
+      "app_http_controllers_reportcontroller_reportcontroller_cash",
+      "app_http_controllers_reportcontroller_reportcontroller_expense",
+      "app_http_controllers_reportcontroller_reportcontroller_index",
+      "app_http_controllers_reportcontroller_reportcontroller_payment",
+      "app_http_controllers_settingcontroller_settingcontroller",
+      "app_http_controllers_settingcontroller_settingcontroller_index",
+      "app_http_controllers_settingcontroller_settingcontroller_resetdata",
+      "app_http_controllers_settingcontroller_settingcontroller_synctime",
+      "app_http_controllers_settingcontroller_settingcontroller_update",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller_getgatewayurl",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller_index",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendbulk",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller_sendduereminders",
+      "app_http_controllers_wagatewaycontroller_wagatewaycontroller_status",
+      "app_http_middleware_permissionmiddleware",
+      "app_http_middleware_permissionmiddleware_permissionmiddleware",
+      "app_http_middleware_permissionmiddleware_permissionmiddleware_handle",
+      "app_http_middleware_rolemiddleware",
+      "app_http_middleware_rolemiddleware_rolemiddleware",
+      "app_http_middleware_rolemiddleware_rolemiddleware_handle",
+      "app_http_middleware_securityheaders",
+      "app_http_middleware_securityheaders_securityheaders",
+      "app_http_middleware_securityheaders_securityheaders_handle",
+      "app_models_billdetail_billdetail_bill",
+      "closure",
+      "controller",
+      "illuminate_http_request",
+      "payment",
+      "symfony_component_httpfoundation_response"
+    ],
+    "6": [
+      "app_http_controllers_promotioncontroller",
+      "app_http_controllers_promotioncontroller_promotioncontroller",
+      "app_http_controllers_promotioncontroller_promotioncontroller_index",
+      "app_http_controllers_promotioncontroller_promotioncontroller_process",
+      "app_http_controllers_schoolclasscontroller",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_create",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_destroy",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_edit",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_export",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_import",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_index",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_show",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_store",
+      "app_http_controllers_schoolclasscontroller_schoolclasscontroller_update",
+      "app_imports_schoolclassesimport",
+      "app_imports_schoolclassesimport_schoolclassesimport",
+      "app_imports_schoolclassesimport_schoolclassesimport_collection",
+      "app_imports_studentsimport",
+      "app_imports_studentsimport_studentsimport",
+      "app_imports_studentsimport_studentsimport_chunksize",
+      "app_imports_studentsimport_studentsimport_collection",
+      "app_imports_studentsimport_studentsimport_construct",
+      "app_models_schoolclass_schoolclass",
+      "app_models_schoolclass_schoolclass_studentclasses",
+      "app_models_schoolclass_schoolclass_students",
+      "illuminate_support_collection",
+      "maatwebsite_excel_concerns_tocollection",
+      "maatwebsite_excel_concerns_withchunkreading",
+      "maatwebsite_excel_concerns_withheadingrow"
+    ],
+    "7": [
+      "app_http_controllers_rolecontroller",
+      "app_http_controllers_rolecontroller_rolecontroller",
+      "app_http_controllers_rolecontroller_rolecontroller_create",
+      "app_http_controllers_rolecontroller_rolecontroller_destroy",
+      "app_http_controllers_rolecontroller_rolecontroller_edit",
+      "app_http_controllers_rolecontroller_rolecontroller_index",
+      "app_http_controllers_rolecontroller_rolecontroller_store",
+      "app_http_controllers_rolecontroller_rolecontroller_update",
+      "app_models_permission",
+      "app_models_permission_permission",
+      "app_models_permission_permission_roles",
+      "app_models_role",
+      "app_models_role_role",
+      "app_models_role_role_permissions",
+      "app_models_role_role_users",
+      "database_migrations_2026_07_14_094428_create_default_superadmin_user",
+      "database_migrations_2026_07_14_094428_create_default_superadmin_user_down",
+      "database_migrations_2026_07_14_094428_create_default_superadmin_user_up",
+      "database_seeders_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder_run",
+      "database_seeders_permissionseeder",
+      "database_seeders_permissionseeder_permissionseeder",
+      "database_seeders_permissionseeder_permissionseeder_run",
+      "database_seeders_roleseeder",
+      "database_seeders_roleseeder_roleseeder",
+      "database_seeders_roleseeder_roleseeder_run",
+      "illuminate_database_console_seeds_withoutmodelevents",
+      "illuminate_database_eloquent_relations_belongstomany",
+      "illuminate_database_seeder"
+    ],
+    "8": [
+      "alpinejs",
+      "autoprefixer",
+      "axios",
+      "concurrently",
+      "laravel_vite_plugin",
+      "package",
+      "package_devdependencies",
+      "package_devdependencies_alpinejs",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_axios",
+      "package_devdependencies_concurrently",
+      "package_devdependencies_laravel_vite_plugin",
+      "package_devdependencies_postcss",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_forms",
+      "package_devdependencies_tailwindcss_vite",
+      "package_devdependencies_vite",
+      "package_private",
+      "package_schema",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_type",
+      "postcss",
+      "tailwindcss",
+      "tailwindcss_forms",
+      "tailwindcss_vite",
+      "vite"
+    ],
+    "9": [
+      "app_http_controllers_expensecategorycontroller",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_create",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_destroy",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_edit",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_index",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_store",
+      "app_http_controllers_expensecategorycontroller_expensecategorycontroller_update",
+      "app_http_controllers_expensecontroller",
+      "app_http_controllers_expensecontroller_expensecontroller",
+      "app_http_controllers_expensecontroller_expensecontroller_approve",
+      "app_http_controllers_expensecontroller_expensecontroller_create",
+      "app_http_controllers_expensecontroller_expensecontroller_index",
+      "app_http_controllers_expensecontroller_expensecontroller_reject",
+      "app_http_controllers_expensecontroller_expensecontroller_show",
+      "app_http_controllers_expensecontroller_expensecontroller_store",
+      "app_http_requests_storeexpensecategoryrequest",
+      "app_http_requests_storeexpensecategoryrequest_storeexpensecategoryrequest",
+      "app_http_requests_storeexpensecategoryrequest_storeexpensecategoryrequest_authorize",
+      "app_http_requests_storeexpensecategoryrequest_storeexpensecategoryrequest_rules",
+      "app_http_requests_storeexpenserequest",
+      "app_http_requests_storeexpenserequest_storeexpenserequest",
+      "app_http_requests_storeexpenserequest_storeexpenserequest_authorize",
+      "app_http_requests_storeexpenserequest_storeexpenserequest_rules",
+      "app_models_expense_expense",
+      "app_models_expense_expense_approver",
+      "app_models_expense_expense_user",
+      "app_models_expensecategory_expensecategory"
+    ],
+    "10": [
+      "composer_scripts",
+      "composer_scripts_dev",
+      "composer_scripts_post_autoload_dump",
+      "composer_scripts_post_create_project_cmd",
+      "composer_scripts_post_root_package_install",
+      "composer_scripts_post_update_cmd",
+      "composer_scripts_pre_package_uninstall",
+      "composer_scripts_setup",
+      "composer_scripts_test",
+      "ref_composer_config_disableprocesstimeout",
+      "ref_composer_install",
+      "ref_illuminate_foundation_composerscripts_postautoloaddump",
+      "ref_illuminate_foundation_composerscripts_prepackageuninstall",
+      "ref_npm_install",
+      "ref_npm_run_build",
+      "ref_npx_concurrently_c_93c5fd_c4b5fd_fb7185_fdba74_php_artisan_serve_php_artisan_queue_listen_tries_1_timeout_0_php_artisan_pail_timeout_0_npm_run_dev_names_server_queue_logs_vite_kill_others",
+      "ref_php_artisan_config_clear_ansi",
+      "ref_php_artisan_key_generate",
+      "ref_php_artisan_key_generate_ansi",
+      "ref_php_artisan_migrate_force",
+      "ref_php_artisan_migrate_graceful_ansi",
+      "ref_php_artisan_package_discover_ansi",
+      "ref_php_artisan_test",
+      "ref_php_artisan_vendor_publish_tag_laravel_assets_ansi_force",
+      "ref_php_r_file_exists_database_database_sqlite_touch_database_database_sqlite",
+      "ref_php_r_file_exists_env_copy_env_example_env"
+    ],
+    "11": [
+      "reflectionparameter",
+      "reflectionproperty",
+      "storage_framework_lsp_1d3a3f2dc6acff9e",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_all",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_construct",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_findfiles",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_formatprops",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getaliases",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getanonymous",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getanonymousnamespaced",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getnamespaced",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getnamespacepath",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getstandardclasses",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getstandardviews",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_getvendorcomponents",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_handleindexcomponents",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_lsphelper",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_lsphelper_formatdefaultvalue",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_lsphelper_isvendor",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_lsphelper_propertydefault",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_lsphelper_relativepath",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_parseprops",
+      "storage_framework_lsp_1d3a3f2dc6acff9e_setprops"
+    ],
+    "12": [
+      "app_http_controllers_billcontroller",
+      "app_http_controllers_billcontroller_billcontroller",
+      "app_http_controllers_billcontroller_billcontroller_bulkupdateduedate",
+      "app_http_controllers_billcontroller_billcontroller_create",
+      "app_http_controllers_billcontroller_billcontroller_getstudentsbyclass",
+      "app_http_controllers_billcontroller_billcontroller_index",
+      "app_http_controllers_billcontroller_billcontroller_manageduedates",
+      "app_http_controllers_billcontroller_billcontroller_printreport",
+      "app_http_controllers_billcontroller_billcontroller_showstudentbills",
+      "app_http_controllers_billcontroller_billcontroller_store",
+      "app_http_controllers_dashboardcontroller",
+      "app_http_controllers_reportcontroller",
+      "app_http_controllers_settingcontroller",
+      "app_http_controllers_wagatewaycontroller",
+      "app_models_academicyear",
+      "app_models_expense",
+      "app_models_schoolclass",
+      "bill",
+      "financepost",
+      "student"
+    ],
+    "13": [
+      "app_exports_arrearreportexport",
+      "app_exports_arrearreportexport_arrearreportexport",
+      "app_exports_arrearreportexport_arrearreportexport_construct",
+      "app_exports_arrearreportexport_arrearreportexport_view",
+      "app_exports_cashreportexport",
+      "app_exports_cashreportexport_cashreportexport",
+      "app_exports_cashreportexport_cashreportexport_construct",
+      "app_exports_cashreportexport_cashreportexport_view",
+      "app_exports_expensereportexport",
+      "app_exports_expensereportexport_expensereportexport",
+      "app_exports_expensereportexport_expensereportexport_construct",
+      "app_exports_expensereportexport_expensereportexport_view",
+      "app_exports_paymentreportexport",
+      "app_exports_paymentreportexport_paymentreportexport",
+      "app_exports_paymentreportexport_paymentreportexport_construct",
+      "app_exports_paymentreportexport_paymentreportexport_view",
+      "illuminate_contracts_view_view",
+      "maatwebsite_excel_concerns_fromview",
+      "maatwebsite_excel_concerns_shouldautosize"
+    ],
+    "14": [
+      "app_exports_schoolclassesexport",
+      "app_exports_schoolclassesexport_schoolclassesexport",
+      "app_exports_schoolclassesexport_schoolclassesexport_collection",
+      "app_exports_schoolclassesexport_schoolclassesexport_headings",
+      "app_exports_schoolclassesexport_schoolclassesexport_map",
+      "app_exports_studentsexport",
+      "app_exports_studentsexport_studentsexport",
+      "app_exports_studentsexport_studentsexport_construct",
+      "app_exports_studentsexport_studentsexport_headings",
+      "app_exports_studentsexport_studentsexport_map",
+      "app_exports_studentsexport_studentsexport_query",
+      "maatwebsite_excel_concerns_exportable",
+      "maatwebsite_excel_concerns_fromcollection",
+      "maatwebsite_excel_concerns_fromquery",
+      "maatwebsite_excel_concerns_withheadings",
+      "maatwebsite_excel_concerns_withmapping"
+    ],
+    "15": [
+      "app_models_bill_bill",
+      "app_models_bill_bill_academicyear",
+      "app_models_bill_bill_financepost",
+      "app_models_bill_bill_getduereminderstatusattribute",
+      "app_models_bill_bill_student",
+      "app_models_expense_expense_academicyear",
+      "app_models_expense_expense_category",
+      "app_models_payment_payment",
+      "app_models_payment_payment_academicyear",
+      "app_models_payment_payment_student",
+      "app_models_payment_payment_user",
+      "app_models_paymentdetail",
+      "app_models_paymentdetail_paymentdetail",
+      "app_models_paymentdetail_paymentdetail_billdetail",
+      "app_models_paymentdetail_paymentdetail_payment",
+      "illuminate_database_eloquent_relations_belongsto"
+    ],
+    "16": [
+      "app_console_commands_autobackupcommand",
+      "app_console_commands_autobackupcommand_autobackupcommand",
+      "app_console_commands_autobackupcommand_autobackupcommand_handle",
+      "app_console_commands_sendduereminderscommand",
+      "app_console_commands_sendduereminderscommand_sendduereminderscommand",
+      "app_console_commands_sendduereminderscommand_sendduereminderscommand_handle",
+      "app_console_commands_synctimecommand",
+      "app_console_commands_synctimecommand_synctimecommand",
+      "app_console_commands_synctimecommand_synctimecommand_handle",
+      "app_models_schoolsetting",
+      "app_models_schoolsetting_schoolsetting",
+      "app_models_schoolsetting_schoolsetting_get",
+      "command",
+      "illuminate_console_command"
+    ],
+    "17": [
+      "app_http_controllers_audittrailcontroller",
+      "app_http_controllers_audittrailcontroller_audittrailcontroller",
+      "app_http_controllers_audittrailcontroller_audittrailcontroller_index",
+      "app_http_controllers_audittrailcontroller_audittrailcontroller_show",
+      "app_models_audittrail",
+      "app_models_audittrail_audittrail",
+      "app_models_audittrail_audittrail_user",
+      "app_models_student",
+      "app_traits_auditable",
+      "app_traits_auditable_audit",
+      "app_traits_auditable_bootauditable"
+    ],
+    "18": [
+      "app_http_controllers_billcontroller_billcontroller_destroy",
+      "app_http_controllers_billcontroller_billcontroller_getfinancepostamount",
+      "app_http_controllers_billcontroller_billcontroller_updateduedate",
+      "app_models_bill",
+      "app_models_bill_bill_details",
+      "app_models_expensecategory",
+      "app_models_expensecategory_expensecategory_expenses",
+      "app_models_financepost",
+      "app_models_financepost_financepost_bills",
+      "app_models_payment_payment_details",
+      "illuminate_database_eloquent_relations_hasmany"
+    ],
+    "19": [
+      "app_models_billdetail",
+      "app_models_billdetail_billdetail",
+      "app_models_billdetail_billdetail_isdue",
+      "app_models_studentclass",
+      "app_models_studentclass_studentclass",
+      "app_models_studentclass_studentclass_academicyear",
+      "app_models_studentclass_studentclass_schoolclass",
+      "app_models_studentclass_studentclass_student",
+      "illuminate_database_eloquent_model"
+    ],
+    "20": [
+      "app_http_controllers_paymentcontroller",
+      "app_http_controllers_paymentcontroller_paymentcontroller",
+      "app_http_controllers_paymentcontroller_paymentcontroller_print",
+      "app_http_controllers_paymentcontroller_paymentcontroller_sendwanotification",
+      "app_http_controllers_paymentcontroller_paymentcontroller_store",
+      "app_http_requests_storepaymentrequest",
+      "app_models_payment"
+    ],
+    "21": [
+      "app_providers_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider_boot",
+      "app_providers_appserviceprovider_appserviceprovider_register",
+      "bootstrap_providers",
+      "illuminate_support_serviceprovider"
+    ],
+    "22": [
+      "phpunit_framework_testcase",
+      "tests_unit_exampletest",
+      "tests_unit_exampletest_exampletest",
+      "tests_unit_exampletest_exampletest_test_that_true_is_true"
+    ],
+    "23": [
+      "profile_partials_delete_user_form",
+      "profile_partials_update_password_form",
+      "profile_partials_update_profile_information_form",
+      "resources_views_profile_edit_blade"
+    ],
+    "24": [
+      "database_migrations_0001_01_01_000000_create_users_table",
+      "database_migrations_0001_01_01_000000_create_users_table_down",
+      "database_migrations_0001_01_01_000000_create_users_table_up"
+    ],
+    "25": [
+      "database_migrations_0001_01_01_000001_create_cache_table",
+      "database_migrations_0001_01_01_000001_create_cache_table_down",
+      "database_migrations_0001_01_01_000001_create_cache_table_up"
+    ],
+    "26": [
+      "database_migrations_0001_01_01_000002_create_jobs_table",
+      "database_migrations_0001_01_01_000002_create_jobs_table_down",
+      "database_migrations_0001_01_01_000002_create_jobs_table_up"
+    ],
+    "27": [
+      "database_migrations_2026_07_10_125027_create_permissions_table",
+      "database_migrations_2026_07_10_125027_create_permissions_table_down",
+      "database_migrations_2026_07_10_125027_create_permissions_table_up"
+    ],
+    "28": [
+      "database_migrations_2026_07_10_125027_create_roles_table",
+      "database_migrations_2026_07_10_125027_create_roles_table_down",
+      "database_migrations_2026_07_10_125027_create_roles_table_up"
+    ],
+    "29": [
+      "database_migrations_2026_07_10_125028_create_user_roles_table",
+      "database_migrations_2026_07_10_125028_create_user_roles_table_down",
+      "database_migrations_2026_07_10_125028_create_user_roles_table_up"
+    ],
+    "30": [
+      "database_migrations_2026_07_10_125029_create_academic_years_table",
+      "database_migrations_2026_07_10_125029_create_academic_years_table_down",
+      "database_migrations_2026_07_10_125029_create_academic_years_table_up"
+    ],
+    "31": [
+      "database_migrations_2026_07_10_125029_create_role_permissions_table",
+      "database_migrations_2026_07_10_125029_create_role_permissions_table_down",
+      "database_migrations_2026_07_10_125029_create_role_permissions_table_up"
+    ],
+    "32": [
+      "database_migrations_2026_07_10_125030_create_classes_table",
+      "database_migrations_2026_07_10_125030_create_classes_table_down",
+      "database_migrations_2026_07_10_125030_create_classes_table_up"
+    ],
+    "33": [
+      "database_migrations_2026_07_10_125030_create_parents_table",
+      "database_migrations_2026_07_10_125030_create_parents_table_down",
+      "database_migrations_2026_07_10_125030_create_parents_table_up"
+    ],
+    "34": [
+      "database_migrations_2026_07_10_125031_create_students_table",
+      "database_migrations_2026_07_10_125031_create_students_table_down",
+      "database_migrations_2026_07_10_125031_create_students_table_up"
+    ],
+    "35": [
+      "database_migrations_2026_07_10_125032_create_finance_posts_table",
+      "database_migrations_2026_07_10_125032_create_finance_posts_table_down",
+      "database_migrations_2026_07_10_125032_create_finance_posts_table_up"
+    ],
+    "36": [
+      "database_migrations_2026_07_10_125032_create_parent_student_table",
+      "database_migrations_2026_07_10_125032_create_parent_student_table_down",
+      "database_migrations_2026_07_10_125032_create_parent_student_table_up"
+    ],
+    "37": [
+      "database_migrations_2026_07_10_125033_create_bills_table",
+      "database_migrations_2026_07_10_125033_create_bills_table_down",
+      "database_migrations_2026_07_10_125033_create_bills_table_up"
+    ],
+    "38": [
+      "database_migrations_2026_07_10_125034_create_bill_details_table",
+      "database_migrations_2026_07_10_125034_create_bill_details_table_down",
+      "database_migrations_2026_07_10_125034_create_bill_details_table_up"
+    ],
+    "39": [
+      "database_migrations_2026_07_10_125034_create_payments_table",
+      "database_migrations_2026_07_10_125034_create_payments_table_down",
+      "database_migrations_2026_07_10_125034_create_payments_table_up"
+    ],
+    "40": [
+      "database_migrations_2026_07_10_125035_create_payment_details_table",
+      "database_migrations_2026_07_10_125035_create_payment_details_table_down",
+      "database_migrations_2026_07_10_125035_create_payment_details_table_up"
+    ],
+    "41": [
+      "database_migrations_2026_07_10_125035_create_payment_evidences_table",
+      "database_migrations_2026_07_10_125035_create_payment_evidences_table_down",
+      "database_migrations_2026_07_10_125035_create_payment_evidences_table_up"
+    ],
+    "42": [
+      "database_migrations_2026_07_10_125036_create_expense_categories_table",
+      "database_migrations_2026_07_10_125036_create_expense_categories_table_down",
+      "database_migrations_2026_07_10_125036_create_expense_categories_table_up"
+    ],
+    "43": [
+      "database_migrations_2026_07_10_125036_create_expenses_table",
+      "database_migrations_2026_07_10_125036_create_expenses_table_down",
+      "database_migrations_2026_07_10_125036_create_expenses_table_up"
+    ],
+    "44": [
+      "database_migrations_2026_07_10_125037_create_audit_trails_table",
+      "database_migrations_2026_07_10_125037_create_audit_trails_table_down",
+      "database_migrations_2026_07_10_125037_create_audit_trails_table_up"
+    ],
+    "45": [
+      "database_migrations_2026_07_10_125038_create_school_settings_table",
+      "database_migrations_2026_07_10_125038_create_school_settings_table_down",
+      "database_migrations_2026_07_10_125038_create_school_settings_table_up"
+    ],
+    "46": [
+      "database_migrations_2026_07_10_132015_add_photo_to_students_table",
+      "database_migrations_2026_07_10_132015_add_photo_to_students_table_down",
+      "database_migrations_2026_07_10_132015_add_photo_to_students_table_up"
+    ],
+    "47": [
+      "database_migrations_2026_07_10_132841_update_finance_posts_table",
+      "database_migrations_2026_07_10_132841_update_finance_posts_table_down",
+      "database_migrations_2026_07_10_132841_update_finance_posts_table_up"
+    ],
+    "48": [
+      "database_migrations_2026_07_10_133933_update_expenses_table_add_status",
+      "database_migrations_2026_07_10_133933_update_expenses_table_add_status_down",
+      "database_migrations_2026_07_10_133933_update_expenses_table_add_status_up"
+    ],
+    "49": [
+      "database_migrations_2026_07_10_175556_add_semester_to_academic_years_table",
+      "database_migrations_2026_07_10_175556_add_semester_to_academic_years_table_down",
+      "database_migrations_2026_07_10_175556_add_semester_to_academic_years_table_up"
+    ],
+    "50": [
+      "database_migrations_2026_07_10_175556_create_student_classes_table_and_migrate_data",
+      "database_migrations_2026_07_10_175556_create_student_classes_table_and_migrate_data_down",
+      "database_migrations_2026_07_10_175556_create_student_classes_table_and_migrate_data_up"
+    ],
+    "51": [
+      "database_migrations_2026_07_10_175557_add_academic_year_id_to_payments_and_expenses",
+      "database_migrations_2026_07_10_175557_add_academic_year_id_to_payments_and_expenses_down",
+      "database_migrations_2026_07_10_175557_add_academic_year_id_to_payments_and_expenses_up"
+    ],
+    "52": [
+      "database_migrations_2026_07_10_202007_add_signature_to_users_table",
+      "database_migrations_2026_07_10_202007_add_signature_to_users_table_down",
+      "database_migrations_2026_07_10_202007_add_signature_to_users_table_up"
+    ],
+    "53": [
+      "database_migrations_2026_08_25_104455_create_student_fee_exemptions_table",
+      "database_migrations_2026_08_25_104455_create_student_fee_exemptions_table_down",
+      "database_migrations_2026_08_25_104455_create_student_fee_exemptions_table_up"
+    ],
+    "54": [
+      "artisan",
+      "routes_console"
+    ],
+    "55": [
+      "deploy",
+      "deploy_sh__entry"
+    ],
+    "56": [
+      "layouts_navigation",
+      "resources_views_layouts_app_blade"
+    ],
+    "57": [
+      "resources_js_app",
+      "resources_js_bootstrap"
+    ],
+    "58": [
+      "resources_views_dashboard_admin_blade",
+      "resources_views_dashboard_admin_blade_php_dashboard_stats"
+    ],
+    "59": [
+      "resources_views_dashboard_kepala_sekolah_blade",
+      "resources_views_dashboard_kepala_sekolah_blade_php_dashboard_stats"
+    ],
+    "60": [
+      "resources_views_dashboard_orang_tua_blade",
+      "resources_views_dashboard_orang_tua_blade_php_dashboard_stats"
+    ],
+    "61": [
+      "resources_views_dashboard_superadmin_blade",
+      "resources_views_dashboard_superadmin_blade_php_dashboard_stats"
+    ],
+    "62": [
+      "resources_views_dashboard_tata_usaha_blade",
+      "resources_views_dashboard_tata_usaha_blade_php_dashboard_stats"
+    ],
+    "63": [
+      "resources_views_dashboard_yayasan_blade",
+      "resources_views_dashboard_yayasan_blade_php_dashboard_stats"
+    ],
+    "64": [
+      "bootstrap_app"
+    ],
+    "65": [
+      "config_app"
+    ],
+    "66": [
+      "config_cache"
+    ],
+    "67": [
+      "config_database"
+    ],
+    "68": [
+      "config_filesystems"
+    ],
+    "69": [
+      "config_logging"
+    ],
+    "70": [
+      "config_mail"
+    ],
+    "71": [
+      "config_queue"
+    ],
+    "72": [
+      "config_services"
+    ],
+    "73": [
+      "config_session"
+    ],
+    "74": [
+      "createdb"
+    ],
+    "75": [
+      "postcss_config"
+    ],
+    "76": [
+      "public_index"
+    ],
+    "77": [
+      "recreate_db"
+    ],
+    "78": [
+      "resources_views_academic_years_create_blade"
+    ],
+    "79": [
+      "resources_views_academic_years_edit_blade"
+    ],
+    "80": [
+      "resources_views_academic_years_index_blade"
+    ],
+    "81": [
+      "resources_views_alumni_edit_blade"
+    ],
+    "82": [
+      "resources_views_alumni_index_blade"
+    ],
+    "83": [
+      "resources_views_alumni_show_blade"
+    ],
+    "84": [
+      "resources_views_audit_trails_index_blade"
+    ],
+    "85": [
+      "resources_views_audit_trails_show_blade"
+    ],
+    "86": [
+      "resources_views_auth_confirm_password_blade"
+    ],
+    "87": [
+      "resources_views_auth_forgot_password_blade"
+    ],
+    "88": [
+      "resources_views_auth_login_blade"
+    ],
+    "89": [
+      "resources_views_auth_register_blade"
+    ],
+    "90": [
+      "resources_views_auth_reset_password_blade"
+    ],
+    "91": [
+      "resources_views_auth_verify_email_blade"
+    ],
+    "92": [
+      "resources_views_bills_due_dates_blade"
+    ],
+    "93": [
+      "resources_views_bills_generate_blade"
+    ],
+    "94": [
+      "resources_views_bills_index_blade"
+    ],
+    "95": [
+      "resources_views_bills_report_pdf_blade"
+    ],
+    "96": [
+      "resources_views_bills_student_show_blade"
+    ],
+    "97": [
+      "resources_views_classes_create_blade"
+    ],
+    "98": [
+      "resources_views_classes_edit_blade"
+    ],
+    "99": [
+      "resources_views_classes_index_blade"
+    ],
+    "100": [
+      "resources_views_classes_show_blade"
+    ],
+    "101": [
+      "resources_views_components_application_logo_blade"
+    ],
+    "102": [
+      "resources_views_components_auth_session_status_blade"
+    ],
+    "103": [
+      "resources_views_components_danger_button_blade"
+    ],
+    "104": [
+      "resources_views_components_dropdown_blade"
+    ],
+    "105": [
+      "resources_views_components_dropdown_link_blade"
+    ],
+    "106": [
+      "resources_views_components_input_error_blade"
+    ],
+    "107": [
+      "resources_views_components_input_label_blade"
+    ],
+    "108": [
+      "resources_views_components_modal_blade"
+    ],
+    "109": [
+      "resources_views_components_nav_link_blade"
+    ],
+    "110": [
+      "resources_views_components_primary_button_blade"
+    ],
+    "111": [
+      "resources_views_components_responsive_nav_link_blade"
+    ],
+    "112": [
+      "resources_views_components_secondary_button_blade"
+    ],
+    "113": [
+      "resources_views_components_text_input_blade"
+    ],
+    "114": [
+      "resources_views_dashboard_blade"
+    ],
+    "115": [
+      "resources_views_dashboard_stats_blade"
+    ],
+    "116": [
+      "resources_views_data_master_index_blade"
+    ],
+    "117": [
+      "resources_views_expense_categories_create_blade"
+    ],
+    "118": [
+      "resources_views_expense_categories_edit_blade"
+    ],
+    "119": [
+      "resources_views_expense_categories_index_blade"
+    ],
+    "120": [
+      "resources_views_expenses_create_blade"
+    ],
+    "121": [
+      "resources_views_expenses_index_blade"
+    ],
+    "122": [
+      "resources_views_expenses_show_blade"
+    ],
+    "123": [
+      "resources_views_finance_posts_create_blade"
+    ],
+    "124": [
+      "resources_views_finance_posts_edit_blade"
+    ],
+    "125": [
+      "resources_views_finance_posts_index_blade"
+    ],
+    "126": [
+      "resources_views_layouts_admin_blade"
+    ],
+    "127": [
+      "resources_views_layouts_guest_blade"
+    ],
+    "128": [
+      "resources_views_layouts_navigation_blade"
+    ],
+    "129": [
+      "resources_views_payments_index_blade"
+    ],
+    "130": [
+      "resources_views_payments_receipt_pdf_blade"
+    ],
+    "131": [
+      "resources_views_profile_partials_delete_user_form_blade"
+    ],
+    "132": [
+      "resources_views_profile_partials_update_password_form_blade"
+    ],
+    "133": [
+      "resources_views_profile_partials_update_profile_information_form_blade"
+    ],
+    "134": [
+      "resources_views_promotions_index_blade"
+    ],
+    "135": [
+      "resources_views_reports_arrear_blade"
+    ],
+    "136": [
+      "resources_views_reports_cash_blade"
+    ],
+    "137": [
+      "resources_views_reports_expense_blade"
+    ],
+    "138": [
+      "resources_views_reports_index_blade"
+    ],
+    "139": [
+      "resources_views_reports_payment_blade"
+    ],
+    "140": [
+      "resources_views_reports_print_arrear_blade"
+    ],
+    "141": [
+      "resources_views_reports_print_cash_blade"
+    ],
+    "142": [
+      "resources_views_reports_print_expense_blade"
+    ],
+    "143": [
+      "resources_views_reports_print_payment_blade"
+    ],
+    "144": [
+      "resources_views_roles_create_blade"
+    ],
+    "145": [
+      "resources_views_roles_edit_blade"
+    ],
+    "146": [
+      "resources_views_roles_index_blade"
+    ],
+    "147": [
+      "resources_views_settings_index_blade"
+    ],
+    "148": [
+      "resources_views_students_create_blade"
+    ],
+    "149": [
+      "resources_views_students_edit_blade"
+    ],
+    "150": [
+      "resources_views_students_index_blade"
+    ],
+    "151": [
+      "resources_views_students_show_blade"
+    ],
+    "152": [
+      "resources_views_users_create_blade"
+    ],
+    "153": [
+      "resources_views_users_edit_blade"
+    ],
+    "154": [
+      "resources_views_users_index_blade"
+    ],
+    "155": [
+      "resources_views_wa_gateway_index_blade"
+    ],
+    "156": [
+      "resources_views_welcome_blade"
+    ],
+    "157": [
+      "tailwind_config"
+    ],
+    "158": [
+      "test_mysql"
+    ],
+    "159": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.05328218243819267,
+    "1": 0.06957047791893527,
+    "2": 0.05279034690799397,
+    "3": 0.07053140096618357,
+    "4": 0.044444444444444446,
+    "5": 0.07973421926910298,
+    "6": 0.11264367816091954,
+    "7": 0.11264367816091954,
+    "8": 0.07142857142857142,
+    "9": 0.1111111111111111,
+    "10": 0.08,
+    "11": 0.17391304347826086,
+    "12": 0.17894736842105263,
+    "13": 0.21052631578947367,
+    "14": 0.19166666666666668,
+    "15": 0.175,
+    "16": 0.21978021978021978,
+    "17": 0.2545454545454545,
+    "18": 0.18181818181818182,
+    "19": 0.2777777777777778,
+    "20": 0.47619047619047616,
+    "21": 0.4,
+    "22": 0.6666666666666666,
+    "23": 0.5,
+    "24": 0.6666666666666666,
+    "25": 0.6666666666666666,
+    "26": 0.6666666666666666,
+    "27": 0.6666666666666666,
+    "28": 0.6666666666666666,
+    "29": 0.6666666666666666,
+    "30": 0.6666666666666666,
+    "31": 0.6666666666666666,
+    "32": 0.6666666666666666,
+    "33": 0.6666666666666666,
+    "34": 0.6666666666666666,
+    "35": 0.6666666666666666,
+    "36": 0.6666666666666666,
+    "37": 0.6666666666666666,
+    "38": 0.6666666666666666,
+    "39": 0.6666666666666666,
+    "40": 0.6666666666666666,
+    "41": 0.6666666666666666,
+    "42": 0.6666666666666666,
+    "43": 0.6666666666666666,
+    "44": 0.6666666666666666,
+    "45": 0.6666666666666666,
+    "46": 0.6666666666666666,
+    "47": 0.6666666666666666,
+    "48": 0.6666666666666666,
+    "49": 0.6666666666666666,
+    "50": 0.6666666666666666,
+    "51": 0.6666666666666666,
+    "52": 0.6666666666666666,
+    "53": 0.6666666666666666,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0,
+    "98": 1.0,
+    "99": 1.0,
+    "100": 1.0,
+    "101": 1.0,
+    "102": 1.0,
+    "103": 1.0,
+    "104": 1.0,
+    "105": 1.0,
+    "106": 1.0,
+    "107": 1.0,
+    "108": 1.0,
+    "109": 1.0,
+    "110": 1.0,
+    "111": 1.0,
+    "112": 1.0,
+    "113": 1.0,
+    "114": 1.0,
+    "115": 1.0,
+    "116": 1.0,
+    "117": 1.0,
+    "118": 1.0,
+    "119": 1.0,
+    "120": 1.0,
+    "121": 1.0,
+    "122": 1.0,
+    "123": 1.0,
+    "124": 1.0,
+    "125": 1.0,
+    "126": 1.0,
+    "127": 1.0,
+    "128": 1.0,
+    "129": 1.0,
+    "130": 1.0,
+    "131": 1.0,
+    "132": 1.0,
+    "133": 1.0,
+    "134": 1.0,
+    "135": 1.0,
+    "136": 1.0,
+    "137": 1.0,
+    "138": 1.0,
+    "139": 1.0,
+    "140": 1.0,
+    "141": 1.0,
+    "142": 1.0,
+    "143": 1.0,
+    "144": 1.0,
+    "145": 1.0,
+    "146": 1.0,
+    "147": 1.0,
+    "148": 1.0,
+    "149": 1.0,
+    "150": 1.0,
+    "151": 1.0,
+    "152": 1.0,
+    "153": 1.0,
+    "154": 1.0,
+    "155": 1.0,
+    "156": 1.0,
+    "157": 1.0,
+    "158": 1.0,
+    "159": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_models_user_user",
+      "label": "User",
+      "degree": 51
+    },
+    {
+      "id": "app_models_student_student",
+      "label": "Student",
+      "degree": 34
+    },
+    {
+      "id": "app_http_controllers_controller_controller",
+      "label": "Controller",
+      "degree": 32
+    },
+    {
+      "id": "app_models_schoolclass_schoolclass",
+      "label": "SchoolClass",
+      "degree": 22
+    },
+    {
+      "id": "app_models_academicyear_academicyear",
+      "label": "AcademicYear",
+      "degree": 19
+    },
+    {
+      "id": "tests_testcase_testcase",
+      "label": "TestCase",
+      "degree": 18
+    },
+    {
+      "id": "app_models_role_role",
+      "label": "Role",
+      "degree": 17
+    },
+    {
+      "id": "app_models_expense_expense",
+      "label": "Expense",
+      "degree": 13
+    },
+    {
+      "id": "app_http_controllers_billcontroller_billcontroller",
+      "label": "BillController",
+      "degree": 13
+    },
+    {
+      "id": "app_http_controllers_studentcontroller_studentcontroller",
+      "label": "StudentController",
+      "degree": 12
+    }
+  ],
+  "surprises": [
+    {
+      "source": "up()",
+      "target": "Permission",
+      "source_files": [
+        "database/migrations/2026_07_14_094428_create_default_superadmin_user.php",
+        "app/Models/Permission.php"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "up()",
+      "target": "User",
+      "source_files": [
+        "database/migrations/2026_07_14_094428_create_default_superadmin_user.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "up()",
+      "target": "Role",
+      "source_files": [
+        "database/migrations/2026_07_14_094428_create_default_superadmin_user.php",
+        "app/Models/Role.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    },
+    {
+      "source": "AcademicYearController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/AcademicYearController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "AcademicYearSessionController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/AcademicYearSessionController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

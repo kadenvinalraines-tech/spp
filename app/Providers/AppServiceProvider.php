@@ -24,11 +24,16 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $academicYears = \App\Models\AcademicYear::orderByDesc('start_date')->get();
-            $activeYearId = \App\Models\AcademicYear::getActiveId();
-            $activeYear = $academicYears->firstWhere('id', $activeYearId) ?? $academicYears->first();
-            $view->with('globalAcademicYears', $academicYears);
-            $view->with('globalActiveYear', $activeYear);
+            try {
+                $academicYears = \App\Models\AcademicYear::orderByDesc('start_date')->get();
+                $activeYearId = \App\Models\AcademicYear::getActiveId();
+                $activeYear = $academicYears->firstWhere('id', $activeYearId) ?? $academicYears->first();
+                $view->with('globalAcademicYears', $academicYears);
+                $view->with('globalActiveYear', $activeYear);
+            } catch (\Exception $e) {
+                $view->with('globalAcademicYears', collect());
+                $view->with('globalActiveYear', null);
+            }
         });
 
         Event::listen(\Illuminate\Auth\Events\Login::class, function ($event) {

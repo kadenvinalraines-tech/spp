@@ -51,6 +51,19 @@ class PaymentController extends Controller
 
                 $unpaidBills = $query->get();
 
+                // Filter details by isDue() and remove bills that have no due details
+                foreach ($unpaidBills as $key => $bill) {
+                    $dueDetails = $bill->details->filter(function($detail) {
+                        return $detail->isDue();
+                    });
+                    
+                    if ($dueDetails->isEmpty()) {
+                        $unpaidBills->forget($key);
+                    } else {
+                        $bill->setRelation('details', $dueDetails);
+                    }
+                }
+
                 // Get Payment History
                 $paymentHistory = Payment::with(['user', 'details.billDetail.bill.financePost'])
                 ->where('student_id', $student->id)
@@ -131,19 +144,42 @@ class PaymentController extends Controller
                     'amount_paid' => $amt,
                 ]);
 
-                $bd->paid_amount += $amt;
-                if ($bd->paid_amount >= $bd->amount) {
-                    $bd->status = 'paid';
-                }
-                $bd->save();
+                if ($data['payment_method'] === 'Gratis / Beasiswa') {
+                    // Decrease the total amount of the bill (discount) instead of counting it as paid money
+                    $bd->amount -= $amt;
+                    if ($bd->amount < 0) {
+                        $bd->amount = 0;
+                    }
+                    if ($bd->paid_amount >= $bd->amount) {
+                        $bd->status = 'paid';
+                    }
+                    $bd->save();
 
-                $bill->total_paid += $amt;
-                if ($bill->total_paid >= $bill->total_amount) {
-                    $bill->status = 'paid';
+                    $bill->total_amount -= $amt;
+                    if ($bill->total_amount < 0) {
+                        $bill->total_amount = 0;
+                    }
+                    if ($bill->total_paid >= $bill->total_amount) {
+                        $bill->status = 'paid';
+                    } else {
+                        $bill->status = 'partial';
+                    }
+                    $bill->save();
                 } else {
-                    $bill->status = 'partial';
+                    $bd->paid_amount += $amt;
+                    if ($bd->paid_amount >= $bd->amount) {
+                        $bd->status = 'paid';
+                    }
+                    $bd->save();
+
+                    $bill->total_paid += $amt;
+                    if ($bill->total_paid >= $bill->total_amount) {
+                        $bill->status = 'paid';
+                    } else {
+                        $bill->status = 'partial';
+                    }
+                    $bill->save();
                 }
-                $bill->save();
             }
 
             DB::commit();
@@ -192,15 +228,25 @@ class PaymentController extends Controller
             $rincianBayar = implode("\n", $rincianBayarArr);
             
             // Hitung Sisa Tunggakan dan Rinciannya
-            $unpaidBills = Bill::with('financePost')->where('student_id', $student->id)->get();
+            $unpaidBills = Bill::with(['financePost', 'academicYear', 'details'])->where('student_id', $student->id)->get();
             $sisaTunggakan = 0;
             $rincianTunggakanArr = [];
 
             foreach($unpaidBills as $b) {
-                $sisa = $b->total_amount - $b->total_paid;
-                if($sisa > 0) {
+                $dueDetails = $b->details->filter(function($detail) {
+                    return $detail->isDue() && $detail->amount > $detail->paid_amount;
+                });
+                
+                foreach ($dueDetails as $detail) {
+                    $sisa = $detail->amount - $detail->paid_amount;
                     $sisaTunggakan += $sisa;
                     $namaPos = $b->financePost->name ?? 'Tagihan';
+                    if ($detail->month) {
+                        $monthName = \Carbon\Carbon::create()->month($detail->month)->translatedFormat('F');
+                        $startYear = \Carbon\Carbon::parse($b->academicYear->start_date ?? now())->year;
+                        $billYear = ($detail->month >= 7 && $detail->month <= 12) ? $startYear : $startYear + 1;
+                        $namaPos .= " (" . strtoupper($monthName) . " " . $billYear . ")";
+                    }
                     $rincianTunggakanArr[] = "- " . $namaPos . ": Rp " . number_format($sisa, 0, ',', '.');
                 }
             }
@@ -221,19 +267,36 @@ class PaymentController extends Controller
             $text .= "\n\n---\n";
             $text .= "_Kuitansi Elektronik - Diterima oleh " . $petugasName . "_";
 
-            $delayMin = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3));
-            $delayMax = intval(\App\Models\SchoolSetting::get('wa_delay_max', 7));
+            $delayMinMs = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3)) * 1000;
+            $delayMaxMs = intval(\App\Models\SchoolSetting::get('wa_delay_max', 7)) * 1000;
 
             $gatewayUrl = \App\Models\SchoolSetting::get('wa_gateway_url', env('WA_GATEWAY_URL', 'http://localhost:3000'));
-            \Illuminate\Support\Facades\Http::timeout(5)->post($gatewayUrl . '/send-bulk', [
-                'messages' => [
-                    [
+            
+            $messages = [
+                [
+                    'phone' => $student->phone,
+                    'message' => $text
+                ]
+            ];
+
+            // Cek apakah ada tagihan bulanan (1 tahun) yang menjadi lunas karena pembayaran ini
+            $fullyPaidBills = [];
+            foreach ($payment->details as $pd) {
+                $bill = $pd->billDetail->bill;
+                if ($bill->status === 'paid' && $bill->financePost->type === 'monthly' && !in_array($bill->id, $fullyPaidBills)) {
+                    $fullyPaidBills[] = $bill->id;
+                    $namaPos = $bill->financePost->name;
+                    $messages[] = [
                         'phone' => $student->phone,
-                        'message' => $text
-                    ]
-                ],
-                'delayMin' => $delayMin,
-                'delayMax' => $delayMax,
+                        'message' => "🎉 *SELAMAT!* 🎉\n\nTagihan *{$namaPos}* untuk 1 TAHUN PENUH telah dinyatakan *LUNAS*.\nTerima kasih atas kedisiplinan dan kerja samanya!"
+                    ];
+                }
+            }
+
+            \Illuminate\Support\Facades\Http::timeout(5)->post($gatewayUrl . '/send-bulk', [
+                'messages' => $messages,
+                'delayMin' => $delayMinMs,
+                'delayMax' => $delayMaxMs,
             ]);
         } catch (\Exception $waErr) {
             // Abaikan error WA agar pembayaran tetap sukses

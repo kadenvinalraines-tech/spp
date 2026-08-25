@@ -33,7 +33,9 @@ class UpdateStudentRequest extends FormRequest
             'address' => ['nullable', 'string'],
             'phone' => ['nullable', 'string', 'max:20'],
             'status' => ['required', 'in:active,graduated,dropout'],
-            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048']
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'fee_exemptions' => ['nullable', 'array'],
+            'fee_exemptions.*' => ['exists:finance_posts,id']
         ];
     }
 }

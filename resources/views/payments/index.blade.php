@@ -106,6 +106,7 @@
                                                 <th width="40"><input type="checkbox" class="form-check-input" id="checkAll"></th>
                                                 <th>Deskripsi</th>
                                                 <th>Total Tagihan</th>
+                                                <th>Sudah Dibayar</th>
                                                 <th>Sisa Tagihan</th>
                                             </tr>
                                         </thead>
@@ -128,6 +129,7 @@
                                                             <small class="text-muted">{{ $bill->academicYear->name }} (Semester {{ $bill->academicYear->semester }}) | Inv: {{ $bill->invoice_number }}</small>
                                                         </td>
                                                         <td>Rp {{ number_format($detail->amount, 0, ',', '.') }}</td>
+                                                        <td class="text-success">Rp {{ number_format($detail->paid_amount, 0, ',', '.') }}</td>
                                                         <td class="text-danger fw-bold">Rp {{ number_format($sisa, 0, ',', '.') }}</td>
                                                     </tr>
                                                     @endif
@@ -136,7 +138,7 @@
                                         </tbody>
                                         <tfoot class="table-light">
                                             <tr>
-                                                <td colspan="4">
+                                                <td colspan="5">
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <button class="btn btn-primary" id="btnPaySelected" disabled data-bs-toggle="modal" data-bs-target="#payModal">
                                                             Bayar Terpilih (0 item)
@@ -223,13 +225,14 @@
                         <input type="hidden" id="modal_sisa_val">
                     </div>
                     <div class="alert alert-info">
-                        <strong>Perhatian:</strong> Pembayaran massal akan melunasi seluruh item tagihan yang dipilih secara penuh. Cicilan (pembayaran sebagian) tidak didukung pada fitur Bayar Sekaligus.
+                        <strong>Perhatian:</strong> Anda dapat mengubah nominal pada kolom <b>Nominal Bayar</b> di bawah ini jika ingin melakukan pembayaran sebagian (Cicilan).
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Metode Pembayaran</label>
                         <select name="payment_method" class="form-select" required>
                             <option value="Tunai">Tunai / Cash</option>
                             <option value="Transfer Bank">Transfer Bank</option>
+                            <option value="Gratis / Beasiswa">Gratis / Beasiswa</option>
                         </select>
                     </div>
                 </div>
@@ -313,6 +316,16 @@ document.addEventListener("DOMContentLoaded", function() {
             let total = 0;
             let index = 0;
 
+            function updateTotal() {
+                let currentTotal = 0;
+                document.querySelectorAll('.cicilan-input').forEach(input => {
+                    let val = parseInt(input.value) || 0;
+                    currentTotal += val;
+                });
+                sisaVal.value = currentTotal;
+                sisaText.value = 'Rp ' + currentTotal.toLocaleString('id-ID');
+            }
+
             selectedChecks.forEach(cb => {
                 const id = cb.getAttribute('data-id');
                 const sisa = parseInt(cb.getAttribute('data-sisa'));
@@ -325,20 +338,32 @@ document.addEventListener("DOMContentLoaded", function() {
                 inputId.name = `payments[${index}][bill_detail_id]`;
                 inputId.value = id;
                 
-                const inputAmount = document.createElement('input');
-                inputAmount.type = 'hidden';
-                inputAmount.name = `payments[${index}][amount]`;
-                inputAmount.value = sisa;
-
                 hiddenInputsContainer.appendChild(inputId);
-                hiddenInputsContainer.appendChild(inputAmount);
 
                 const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.innerHTML = `${desc} <span>Rp ${sisa.toLocaleString('id-ID')}</span>`;
+                li.className = 'list-group-item';
+                
+                const divTop = document.createElement('div');
+                divTop.className = 'd-flex justify-content-between mb-1';
+                divTop.innerHTML = `<span>${desc}</span><small class="text-muted">Sisa: Rp ${sisa.toLocaleString('id-ID')}</small>`;
+                
+                const divInput = document.createElement('div');
+                divInput.className = 'input-group input-group-sm';
+                divInput.innerHTML = `
+                    <span class="input-group-text">Rp</span>
+                    <input type="number" class="form-control cicilan-input" name="payments[${index}][amount]" value="${sisa}" max="${sisa}" min="1" required>
+                `;
+                
+                li.appendChild(divTop);
+                li.appendChild(divInput);
                 listContainer.appendChild(li);
 
                 index++;
+            });
+
+            // Add event listeners to newly created inputs
+            document.querySelectorAll('.cicilan-input').forEach(input => {
+                input.addEventListener('input', updateTotal);
             });
 
             sisaVal.value = total;

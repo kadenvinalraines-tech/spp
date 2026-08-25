@@ -111,7 +111,11 @@ class BackupController extends Controller
                 return redirect()->back()->with('error', 'File harus berformat .sql');
             }
 
-            $sql = file_get_contents($file->getRealPath());
+            $filePath = $file->getRealPath();
+            $dbHost = env('DB_HOST', '127.0.0.1');
+            $dbName = env('DB_DATABASE', 'spp');
+            $dbUser = env('DB_USERNAME', 'root');
+            $dbPass = env('DB_PASSWORD', '');
 
             // Nonaktifkan pemeriksaan kunci asing sementara jika ada masalah relasi saat DROP
             \Illuminate\Support\Facades\DB::unprepared('SET FOREIGN_KEY_CHECKS=0;');
@@ -126,8 +130,65 @@ class BackupController extends Controller
                 }
             }
 
-            \Illuminate\Support\Facades\DB::unprepared($sql);
+            $success = false;
+            
+            // 1. Coba gunakan eksekusi CLI MySQL terlebih dahulu
+            if (function_exists('exec')) {
+                $mysqlPaths = [
+                    'mysql',
+                    'C:\xampp\mysql\bin\mysql.exe',
+                    '/usr/bin/mysql'
+                ];
+                
+                foreach ($mysqlPaths as $mysql) {
+                    if ($mysql === 'mysql' || file_exists($mysql)) {
+                        $command = sprintf(
+                            '"%s" --host=%s --user=%s %s %s < "%s" 2>&1',
+                            $mysql,
+                            escapeshellarg($dbHost),
+                            escapeshellarg($dbUser),
+                            $dbPass ? '--password=' . escapeshellarg($dbPass) : '',
+                            escapeshellarg($dbName),
+                            $filePath
+                        );
+                        
+                        exec($command, $output, $returnVar);
+                        
+                        if ($returnVar === 0) {
+                            $success = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 2. Fallback ke parser PHP murni jika CLI gagal (bypass max_allowed_packet)
+            if (!$success) {
+                $handle = fopen($filePath, "r");
+                if ($handle) {
+                    $query = '';
+                    while (($line = fgets($handle)) !== false) {
+                        $trimmed = trim($line);
+                        // Abaikan komentar dan baris kosong
+                        if (empty($trimmed) || str_starts_with($trimmed, '--') || str_starts_with($trimmed, '/*')) {
+                            continue;
+                        }
+                        $query .= $line;
+                        if (str_ends_with($trimmed, ';')) {
+                            \Illuminate\Support\Facades\DB::unprepared($query);
+                            $query = '';
+                        }
+                    }
+                    fclose($handle);
+                } else {
+                    throw new \Exception("Gagal membaca file SQL.");
+                }
+            }
+
             \Illuminate\Support\Facades\DB::unprepared('SET FOREIGN_KEY_CHECKS=1;');
+            
+            // Jalankan migrasi agar tabel krusial seperti 'sessions' yang mungkin tidak ada di file backup lama tetap terbuat.
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
 
             return redirect()->back()->with('success', 'Database berhasil di-restore dengan sukses.');
 

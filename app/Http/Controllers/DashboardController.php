@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         // Setup base queries
         $billQuery = Bill::query();
-        $paymentQuery = Payment::where('status', 'success');
+        $paymentQuery = Payment::where('status', 'success')->where('payment_method', '!=', 'Gratis / Beasiswa');
         $expenseQuery = Expense::where('status', 'approved');
 
         if ($filterRange === 'active_semester') {
@@ -190,6 +190,7 @@ class DashboardController extends Controller
         for ($i = 11; $i >= 0; $i--) {
             $date = Carbon::now()->subMonths($i);
             $total = Payment::where('status', 'success')
+                ->where('payment_method', '!=', 'Gratis / Beasiswa')
                 ->whereYear('date', $date->year)
                 ->whereMonth('date', $date->month)
                 ->sum('total_amount');

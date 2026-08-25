@@ -80,6 +80,7 @@ class SettingController extends Controller
             if ($request->reset_students) {
                 Student::truncate();
                 StudentClass::truncate();
+                DB::table('student_fee_exemptions')->truncate();
             }
             if ($request->reset_classes) {
                 SchoolClass::truncate();
@@ -89,6 +90,7 @@ class SettingController extends Controller
             }
             if ($request->reset_finance_posts) {
                 FinancePost::truncate();
+                DB::table('student_fee_exemptions')->truncate();
             }
             if ($request->reset_bills) {
                 Bill::truncate();

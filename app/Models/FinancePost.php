@@ -16,4 +16,9 @@ class FinancePost extends Model
     {
         return $this->hasMany(Bill::class);
     }
+
+    public function exemptedStudents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'student_fee_exemptions', 'finance_post_id', 'student_id')->withTimestamps();
+    }
 }

@@ -58,7 +58,7 @@
                 </thead>
                 <tbody>
                     @forelse($arrears as $index => $ar)
-                        @php $sisa = $ar->total_amount - $ar->total_paid; @endphp
+                        @php $sisa = $ar->due_arrear_amount ?? ($ar->total_amount - $ar->total_paid); @endphp
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $ar->student->name ?? '-' }} <br><small class="text-muted">{{ $ar->student->nis ?? '-' }}</small></td>

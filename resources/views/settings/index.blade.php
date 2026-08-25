@@ -265,56 +265,12 @@
                                 <div class="form-text">Pesan ini akan <b>otomatis terkirim</b> setiap kali petugas memproses pembayaran. Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[NOMINAL_BAYAR]</code>, <code>[RINCIAN_BAYAR]</code>, <code>[SISA_TAGIHAN]</code>.</div>
                             </div>
                             
-                            <hr class="my-4 border-light">
-                            <h6 class="fw-bold mb-3">Pengaturan Pengingat Jatuh Tempo</h6>
-                            
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold">Jeda (Delay) Kirim Minimal (Detik)</label>
-                                    <input type="number" name="wa_delay_min" class="form-control" value="{{ $settings['wa_delay_min'] ?? 3 }}" min="1">
-                                    <div class="form-text">Mencegah blokir WA karena spamming.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold">Jeda (Delay) Kirim Maksimal (Detik)</label>
-                                    <input type="number" name="wa_delay_max" class="form-control" value="{{ $settings['wa_delay_max'] ?? 7 }}" min="2">
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-primary px-4">
-                                    <i class="bi bi-save me-2"></i> Simpan Konfigurasi WA
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- TAB TEMPLATE PESAN WA -->
-                        <div class="tab-pane fade" id="v-pills-templates" role="tabpanel">
-                            <h5 class="mb-4 text-primary">Template Pesan WhatsApp</h5>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-bold">Template Bukti Pembayaran Lunas</label>
-                                <textarea name="wa_template_payment_success" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [TOTAL_BAYAR], [BULAN_BAYAR], [PETUGAS]">{{ $settings['wa_template_payment_success'] ?? "Terima kasih, pembayaran untuk *[NAMA_SISWA]* sebesar *Rp [TOTAL_BAYAR]* telah kami terima.\n\nRincian Pembayaran:\n[RINCIAN]\n\nTanggal: [TANGGAL]\nPetugas: [PETUGAS]\n\nStruk digital ini adalah bukti pembayaran yang sah." }}</textarea>
-                                <div class="form-text">Pesan ini akan otomatis terkirim sesaat setelah pembayaran berhasil disimpan. Penanda yang bisa digunakan: <code>[NAMA_SISWA]</code>, <code>[TOTAL_BAYAR]</code>, <code>[RINCIAN]</code>, <code>[TANGGAL]</code>, <code>[PETUGAS]</code>.</div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-bold">Template Tagihan Massal</label>
-                                <textarea name="wa_template_bulk" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [TOTAL_TUNGGAKAN]">{{ $settings['wa_template_bulk'] ?? "PEMBERITAHUAN MASSAL\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\n\nKami menginformasikan adanya tagihan sekolah yang belum lunas sebesar *Rp [TOTAL_TUNGGAKAN]*.\n\nRincian:\n[RINCIAN]\n\nHarap segera melunasi tagihan tersebut. Abaikan pesan ini jika sudah membayar." }}</textarea>
-                                <div class="form-text">Pesan ini dikirim saat Broadcast Pesan Massal di halaman tagihan. Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[TOTAL_TUNGGAKAN]</code>, <code>[RINCIAN]</code>.</div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-bold">Template Pesan Pribadi (Tunggakan)</label>
-                                <textarea name="wa_template_personal" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [TOTAL_TUNGGAKAN]">{{ $settings['wa_template_personal'] ?? "Halo, Orang Tua/Wali dari *[NAMA_SISWA]*\n\nBerdasarkan catatan kami, ananda memiliki tagihan biaya sekolah sebesar *Rp [TOTAL_TUNGGAKAN]*.\n\nBerikut rinciannya:\n[RINCIAN]\n\nMohon untuk segera diselesaikan. Terima kasih." }}</textarea>
-                                <div class="form-text">Pesan ini dikirim secara personal saat menekan tombol WA di profil siswa. Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[TOTAL_TUNGGAKAN]</code>, <code>[RINCIAN]</code>.</div>
-                            </div>
-
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label fw-bold">Template Pengingat Jatuh Tempo</label>
                                 <textarea name="wa_template_due_reminder" class="form-control" rows="5" placeholder="Gunakan tag [NAMA_SISWA], [TOTAL_TUNGGAKAN], [JATUH_TEMPO]">{{ $settings['wa_template_due_reminder'] ?? "PENGINGAT TAGIHAN\n\nHalo, Wali Murid dari *[NAMA_SISWA]*\n\nKami mengingatkan bahwa tagihan sekolah ananda sebesar *Rp [TOTAL_TUNGGAKAN]* akan jatuh tempo pada *[JATUH_TEMPO]*.\n\nMohon kerjasamanya untuk menyelesaikan pembayaran sebelum tanggal tersebut.\nAbaikan pesan ini jika sudah melakukan pembayaran. Terima kasih." }}</textarea>
-                                <div class="form-text">Pesan ini dikirim saat perintah pengingat dijalankan (otomatis via Cron Job atau manual). Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[TOTAL_TUNGGAKAN]</code>, <code>[JATUH_TEMPO]</code>, <code>[RINCIAN]</code>.</div>
+                                <div class="form-text">Pesan ini dikirim saat perintah pengingat dijalankan dari menu daftar tagihan. Gunakan penanda: <code>[NAMA_SISWA]</code>, <code>[TOTAL_TUNGGAKAN]</code>, <code>[JATUH_TEMPO]</code>, <code>[RINCIAN]</code>.</div>
                             </div>
+
                         </div>
 
                         <!-- TAB SINKRONISASI WAKTU -->

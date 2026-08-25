@@ -871,6 +871,9 @@
                     <a href="{{ route('bills.generate') }}" class="sidebar-link {{ request()->routeIs('bills.generate') ? 'active' : '' }}">
                         Generate Tagihan
                     </a>
+                    <a href="{{ route('bills.due-dates') }}" class="sidebar-link {{ request()->routeIs('bills.due-dates') ? 'active' : '' }}">
+                        Jatuh Tempo Massal
+                    </a>
                 </div>
             </div>
             @endif

@@ -33,11 +33,11 @@ class WaGatewayController extends Controller
     public function sendBulk(Request $request)
     {
         $request->validate([
-            'bill_ids' => 'required|array',
-            'bill_ids.*' => 'exists:bills,id'
+            'student_ids' => 'required|array',
+            'student_ids.*' => 'exists:students,id'
         ]);
 
-        $bills = \App\Models\Bill::whereIn('id', $request->bill_ids)->with(['student', 'financePost', 'details'])->get();
+        $bills = \App\Models\Bill::whereIn('student_id', $request->student_ids)->with(['student', 'financePost', 'details'])->get();
         
         $messages = [];
         $petugasName = Auth::user()->name;
@@ -150,13 +150,13 @@ class WaGatewayController extends Controller
         \Illuminate\Support\Facades\Log::info('sendBulk: Attempting to send messages', ['type' => $request->input('type'), 'count' => count($messages), 'sample' => $messages[0] ?? null]);
 
         try {
-            $delayMin = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3));
-            $delayMax = intval(\App\Models\SchoolSetting::get('wa_delay_max', 7));
+            $delayMinMs = intval(\App\Models\SchoolSetting::get('wa_delay_min', 3)) * 1000;
+            $delayMaxMs = intval(\App\Models\SchoolSetting::get('wa_delay_max', 7)) * 1000;
 
             $response = Http::timeout(10)->post($this->getGatewayUrl() . '/send-bulk', [
                 'messages'  => $messages,
-                'delayMin'  => $delayMin,
-                'delayMax'  => $delayMax,
+                'delayMin'  => $delayMinMs,
+                'delayMax'  => $delayMaxMs,
             ]);
 
             if ($response->successful() && $response->json('success')) {

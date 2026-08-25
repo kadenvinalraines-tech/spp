@@ -6,16 +6,21 @@
 <div class="card shadow-sm mb-4">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Daftar Tagihan</h5>
-        <a href="{{ route('bills.generate') }}" class="btn btn-primary btn-sm">Generate Tagihan Kelas</a>
+        <div>
+            <a href="{{ route('bills.print-report', request()->all()) }}" target="_blank" class="btn btn-warning btn-sm text-dark me-2">
+                <i class="bi bi-printer"></i> Cetak Laporan (PDF)
+            </a>
+            <a href="{{ route('bills.generate') }}" class="btn btn-primary btn-sm">Generate Tagihan Kelas</a>
+        </div>
     </div>
     <div class="card-body">
         <form action="{{ route('bills.index') }}" method="GET" class="row g-3 mb-4">
-            <div class="col-md-5">
-                <input type="text" name="search" class="form-control" placeholder="Cari Nama Siswa atau No. Invoice..." value="{{ request('search') }}">
+            <div class="col-md-3">
+                <input type="text" name="search" class="form-control" placeholder="Cari Siswa/Invoice..." value="{{ request('search') }}">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <select name="class_id" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- Semua Kelas --</option>
+                    <option value="">-- Kelas --</option>
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
                             {{ $class->name }}
@@ -23,7 +28,25 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 d-flex gap-2">
+            <div class="col-md-3">
+                <select name="finance_post_id" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Pos Tagihan --</option>
+                    @foreach($financePosts as $post)
+                        <option value="{{ $post->id }}" {{ request('finance_post_id') == $post->id ? 'selected' : '' }}>
+                            {{ $post->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="per_page" class="form-select" onchange="this.form.submit()">
+                    <option value="15" {{ request('per_page') == '15' ? 'selected' : '' }}>15 Baris</option>
+                    <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50 Baris</option>
+                    <option value="100" {{ request('per_page') == '100' ? 'selected' : '' }}>100 Baris</option>
+                    <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>Semua Data</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
                 <button type="submit" class="btn btn-secondary flex-fill">Cari</button>
                 <a href="{{ route('bills.index') }}" class="btn btn-outline-secondary flex-fill">Reset</a>
             </div>
@@ -45,60 +68,78 @@
                     <tr>
                         <th width="5%"><input type="checkbox" id="checkAll"></th>
                         <th>No</th>
-                        <th>No. Invoice</th>
                         <th>Siswa</th>
                         <th>Kelas</th>
-                        <th>T.A. / Semester</th>
-                        <th>Jenis Tagihan</th>
-                        <th>Total</th>
-                        <th>Jatuh Tempo</th>
+                        <th>Rincian Tagihan Belum Lunas</th>
+                        <th>Total Tunggakan</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($bills as $index => $bill)
+                    @forelse($students as $index => $student)
+                        @php
+                            $dueUnpaidDetails = collect();
+                            foreach($student->bills as $bill) {
+                                if($bill->status !== 'paid') {
+                                    foreach($bill->details as $detail) {
+                                        if($detail->status !== 'paid' && $detail->isDue()) {
+                                            $dueUnpaidDetails->push($detail);
+                                        }
+                                    }
+                                }
+                            }
+                            $totalTunggakan = $dueUnpaidDetails->sum(function($detail) {
+                                return $detail->amount - $detail->paid_amount;
+                            });
+                            
+                            $activeYearId = \App\Models\AcademicYear::getActiveId();
+                            $studentClass = $student->studentClasses->where('academic_year_id', $activeYearId)->first();
+                            $className = $studentClass ? $studentClass->schoolClass->name : ($student->schoolClass->name ?? '-');
+                        @endphp
                         <tr>
                             <td>
-                                @if($bill->status !== 'paid' && $bill->student->phone)
-                                    <input type="checkbox" name="bill_ids[]" value="{{ $bill->id }}" class="checkItem">
+                                @if($dueUnpaidDetails->count() > 0 && $student->phone)
+                                    <input type="checkbox" name="student_ids[]" value="{{ $student->id }}" class="checkItem">
                                 @endif
                             </td>
-                            <td>{{ $bills->firstItem() + $index }}</td>
-                            <td>{{ $bill->invoice_number }}</td>
+                            <td>{{ $students->firstItem() + $index }}</td>
                             <td>
-                                {{ $bill->student->name ?? '-' }}<br>
-                                <small class="text-muted">NIS: {{ $bill->student->nis ?? '-' }} | WA: {{ $bill->student->phone ?? 'Tidak Ada' }}</small>
+                                <strong><a href="{{ route('bills.student.show', $student->id) }}" class="text-decoration-none">{{ $student->name }}</a></strong><br>
+                                <small class="text-muted">NIS: {{ $student->nis ?? '-' }} | WA: {{ $student->phone ?? 'Tidak Ada' }}</small>
                             </td>
                             <td>
-                                @php
-                                    // Tampilkan kelas pada saat tagihan dibuat berdasarkan tahun ajarannya
-                                    $studentClass = $bill->student->studentClasses->where('academic_year_id', $bill->academic_year_id)->first();
-                                    $className = $studentClass ? $studentClass->schoolClass->name : ($bill->student->schoolClass->name ?? '-');
-                                @endphp
                                 <span class="badge bg-secondary">{{ $className }}</span>
                             </td>
                             <td>
-                                {{ $bill->academicYear->name ?? '-' }}<br>
-                                <small class="text-muted">{{ $bill->academicYear->semester ?? '-' }}</small>
-                            </td>
-                            <td>{{ $bill->financePost->name ?? '-' }}</td>
-                            <td>Rp {{ number_format($bill->total_amount, 0, ',', '.') }}</td>
-                            <td>
-                                {{ \Carbon\Carbon::parse($bill->due_date)->translatedFormat('d F Y') }}<br>
-                                @if($bill->due_reminder_status)
-                                    <small class="{{ $bill->due_reminder_status['class'] }} d-block mt-1">
-                                        <i class="bi bi-clock-history"></i> {{ $bill->due_reminder_status['text'] }}
-                                    </small>
-                                @endif
-                            </td>
-                            <td>
-                                @if($bill->status == 'paid')
-                                    <span class="badge bg-success">Lunas</span>
-                                @elseif($bill->status == 'partial')
-                                    <span class="badge bg-warning">Sebagian</span>
+                                @if($dueUnpaidDetails->isEmpty())
+                                    <span class="text-success"><i class="bi bi-check-circle"></i> Tidak ada tunggakan bulan ini</span>
                                 @else
-                                    <span class="badge bg-danger">Belum Bayar</span>
+                                    <ul class="mb-0 ps-3 small text-danger">
+                                        @foreach($dueUnpaidDetails as $detail)
+                                            <li>
+                                                {{ $detail->bill->financePost->name ?? 'Tagihan' }}
+                                                @if($detail->month) (Bulan {{ $detail->month }}) @endif: 
+                                                <strong>Rp {{ number_format($detail->amount - $detail->paid_amount, 0, ',', '.') }}</strong>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 @endif
+                            </td>
+                            <td>
+                                <strong>Rp {{ number_format($totalTunggakan, 0, ',', '.') }}</strong>
+                            </td>
+                            <td>
+                                @if($totalTunggakan == 0)
+                                    <span class="badge bg-success">Lunas</span>
+                                @else
+                                    <span class="badge bg-danger">Ada Tunggakan</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('payments.index', ['student_id' => $student->id]) }}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-cash"></i> Bayar
+                                </a>
                             </td>
                         </tr>
                     @empty
@@ -110,7 +151,7 @@
             </table>
         </div>
         <div class="d-flex justify-content-end">
-            {{ $bills->links() }}
+            {{ $students->links() }}
         </div>
         </form>
     </div>

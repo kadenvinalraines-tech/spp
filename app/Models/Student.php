@@ -22,6 +22,11 @@ class Student extends Model
         return $this->hasMany(Bill::class);
     }
 
+    public function feeExemptions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(FinancePost::class, 'student_fee_exemptions', 'student_id', 'finance_post_id')->withTimestamps();
+    }
+
     public function getSchoolClassAttribute()
     {
         $activeYearId = \App\Models\AcademicYear::getActiveId();

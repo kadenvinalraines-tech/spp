@@ -46,8 +46,9 @@ class StudentController extends Controller
     public function create()
     {
         $classes = SchoolClass::orderBy('level')->orderBy('name')->get();
+        $financePosts = \App\Models\FinancePost::where('status', 'active')->orderBy('name')->get();
 
-        return view('students.create', compact('classes'));
+        return view('students.create', compact('classes', 'financePosts'));
     }
 
     public function store(StoreStudentRequest $request)
@@ -61,7 +62,14 @@ class StudentController extends Controller
             $data['photo'] = $path;
         }
 
+        $feeExemptions = $data['fee_exemptions'] ?? [];
+        unset($data['fee_exemptions']);
+
         $student = Student::create($data);
+
+        if (!empty($feeExemptions)) {
+            $student->feeExemptions()->sync($feeExemptions);
+        }
 
         $activeYearId = \App\Models\AcademicYear::getActiveId();
         if ($activeYearId) {
@@ -83,8 +91,9 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         $classes = SchoolClass::orderBy('level')->orderBy('name')->get();
+        $financePosts = \App\Models\FinancePost::where('status', 'active')->orderBy('name')->get();
 
-        return view('students.edit', compact('student', 'classes'));
+        return view('students.edit', compact('student', 'classes', 'financePosts'));
     }
 
     public function update(UpdateStudentRequest $request, Student $student)
@@ -102,7 +111,12 @@ class StudentController extends Controller
             $data['photo'] = $path;
         }
 
+        $feeExemptions = $data['fee_exemptions'] ?? [];
+        unset($data['fee_exemptions']);
+
         $student->update($data);
+        
+        $student->feeExemptions()->sync($feeExemptions);
 
         $activeYearId = \App\Models\AcademicYear::getActiveId();
         if ($activeYearId) {

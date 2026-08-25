@@ -33,6 +33,7 @@ class ReportController extends Controller
 
         // Pemasukan (Pembayaran sukses)
         $payments = Payment::where('status', 'success')
+            ->where('payment_method', '!=', 'Gratis / Beasiswa')
             ->where('academic_year_id', $activeYearId)
             ->whereBetween('date', [$startDate, $endDate])
             ->get()
@@ -94,6 +95,7 @@ class ReportController extends Controller
         $payments = Payment::with(['student.studentClasses.schoolClass', 'user'])
             ->where('academic_year_id', $activeYearId)
             ->where('status', 'success')
+            ->where('payment_method', '!=', 'Gratis / Beasiswa')
             ->whereBetween('date', [$startDate, $endDate])
             ->latest('date')
             ->get();
@@ -156,7 +158,9 @@ class ReportController extends Controller
         $academicYears = AcademicYear::latest()->get();
         $classes = SchoolClass::orderBy('level')->orderBy('name')->get();
 
-        $query = Bill::with(['student.studentClasses.schoolClass', 'academicYear', 'financePost'])
+        $query = Bill::with(['student.studentClasses.schoolClass', 'academicYear', 'financePost', 'details' => function($q) {
+            $q->where('status', '!=', 'paid');
+        }])
             ->whereIn('status', ['unpaid', 'partial']);
 
         if ($academicYearId) {
@@ -176,10 +180,22 @@ class ReportController extends Controller
             });
         }
 
-        // Default: If nothing is selected, we might want to just show empty or all. Let's show all matching query.
-        $arrears = $query->get();
-        
-        $totalArrears = $arrears->sum('total_amount') - $arrears->sum('total_paid');
+        $allArrears = $query->get();
+        $arrears = collect();
+        $totalArrears = 0;
+
+        foreach ($allArrears as $bill) {
+            $dueDetails = $bill->details->filter(function($detail) {
+                return $detail->isDue() && $detail->amount > $detail->paid_amount;
+            });
+
+            if ($dueDetails->isNotEmpty()) {
+                $billDueAmount = $dueDetails->sum('amount') - $dueDetails->sum('paid_amount');
+                $bill->due_arrear_amount = $billDueAmount; // Set dynamic property for views
+                $totalArrears += $billDueAmount;
+                $arrears->push($bill);
+            }
+        }
 
         $selYear = $academicYears->firstWhere('id', $academicYearId)->name ?? 'Semua';
         $selClass = $classes->firstWhere('id', $classId)->name ?? 'Semua';

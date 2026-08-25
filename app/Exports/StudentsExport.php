@@ -23,7 +23,7 @@ class StudentsExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        $query = Student::query()->with('schoolClass');
+        $query = Student::query()->with(['studentClasses.schoolClass']);
 
         if ($this->search) {
             $query->where(function($q) {
