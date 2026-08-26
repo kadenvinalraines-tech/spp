@@ -165,13 +165,28 @@
 
         fetch(`{{ route('api.classes.students', [], false) }}`, {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : document.querySelector('input[name="_token"]').value
             },
             body: JSON.stringify({ class_ids: selectedClasses })
         })
-            .then(response => response.json())
+            .then(async response => {
+                if (!response.ok) {
+                    let errStr = `HTTP ${response.status}`;
+                    try {
+                        const errData = await response.json();
+                        errStr += ` - ${errData.message || errData.error || 'Unknown Error'}`;
+                    } catch (e) {
+                        errStr += ` - ${response.statusText}`;
+                    }
+                    throw new Error(errStr);
+                }
+                return response.json();
+            })
             .then(students => {
                 container.innerHTML = '';
                 if (students.length === 0) {
@@ -196,7 +211,7 @@
             })
             .catch(error => {
                 console.error('Error fetching students:', error);
-                container.innerHTML = '<div class="col-12 text-center small text-danger">Gagal memuat data siswa.</div>';
+                container.innerHTML = `<div class="col-12 text-center small text-danger fw-bold">Gagal memuat data siswa.<br><small class="text-muted">${error.message}</small></div>`;
             });
     }
 
