@@ -74,8 +74,8 @@ Route::middleware('auth')->group(function () {
         Route::get('bills/student/{student}', [\App\Http\Controllers\BillController::class, 'showStudentBills'])->name('bills.student.show');
         Route::patch('bills/{bill}/due-date', [\App\Http\Controllers\BillController::class, 'updateDueDate'])->name('bills.update-due-date');
         Route::delete('bills/{bill}', [\App\Http\Controllers\BillController::class, 'destroy'])->name('bills.destroy');
-        Route::get('api/finance-posts/{financePost}/amount', [\App\Http\Controllers\BillController::class, 'getFinancePostAmount']);
-        Route::post('api/classes/students', [\App\Http\Controllers\BillController::class, 'getStudentsByClass']);
+        Route::get('api/finance-posts/{financePost}/amount', [\App\Http\Controllers\BillController::class, 'getFinancePostAmount'])->name('api.finance-posts.amount');
+        Route::post('api/classes/students', [\App\Http\Controllers\BillController::class, 'getStudentsByClass'])->name('api.classes.students');
     });
 
     // Payments Route

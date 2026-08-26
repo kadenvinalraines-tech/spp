@@ -735,9 +735,9 @@
     "semantic_hash": "12bbb06a84fdacd09f21b16f4ba38de7"
   },
   "resources/views/bills/generate.blade.php": {
-    "mtime": 1787651993.4809804,
-    "ast_hash": "8025155d950e5911ae05233ffbf85fe3",
-    "semantic_hash": "8025155d950e5911ae05233ffbf85fe3"
+    "mtime": 1787702233.2282307,
+    "ast_hash": "ee848e1b888c76e16d5a25772daa99a0",
+    "semantic_hash": "ee848e1b888c76e16d5a25772daa99a0"
   },
   "resources/views/bills/index.blade.php": {
     "mtime": 1787632490.3077402,
